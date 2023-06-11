@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.10.4",
+    "dotenv": "^16.1.4",
     "express": "^4.18.2"
   },
   "devDependencies": {
