@@ -2,8 +2,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "node server.js",
-    "dev:watch": "nodemon server.js"
+    "dev": "node src/server.js",
+    "dev:watch": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
