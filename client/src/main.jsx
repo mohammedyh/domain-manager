@@ -5,14 +5,15 @@ import {
   SignedIn,
   SignedOut,
 } from "@clerk/clerk-react";
+import "@fontsource-variable/inter";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {
+  Navigate,
   RouterProvider,
   createBrowserRouter,
-  Navigate,
 } from "react-router-dom";
-import App from "./App.jsx";
+import App from "./App";
 import "./index.css";
 
 const clerkPubKey = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY;
@@ -37,11 +38,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/signin/",
-    element: <SignIn signUpUrl="/signup" />,
+    element: (
+      <div className="grid place-content-center min-h-screen">
+        <SignIn signUpUrl="/signup" />
+      </div>
+    ),
   },
   {
     path: "/signup/",
-    element: <SignUp signInUrl="/signin" />,
+    element: (
+      <div className="grid place-content-center min-h-screen">
+        <SignUp signInUrl="/signin" />
+      </div>
+    ),
   },
 ]);
 
