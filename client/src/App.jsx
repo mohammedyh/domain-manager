@@ -1,30 +1,38 @@
-import { useUser } from "@clerk/clerk-react";
-import "./App.css";
+import { UserButton } from "@clerk/clerk-react";
+import { Card, Col, Flex, Grid, Title } from "@tremor/react";
 
 function App() {
-  const { user } = useUser();
   return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.75rem",
-          alignItems: "center",
-        }}
-      >
-        <img
-          style={{ borderRadius: "50%" }}
-          src={user?.imageUrl}
-          alt="Profile image"
-          width="75"
-          height="75"
-        />
-        <p style={{ fontSize: "18px" }}>
-          {user?.primaryEmailAddress?.emailAddress}
-        </p>
-      </div>
-    </>
+    <main className="p-8">
+      <Flex justifyContent="between">
+        <Title>Dashboard Overview</Title>
+        <UserButton />
+      </Flex>
+
+      <Grid numItemsLg={6} className="gap-6 mt-6">
+        {/* Main section */}
+        <Col numColSpanLg={4}>
+          <Card className="h-full">
+            <div className="h-60" />
+          </Card>
+        </Col>
+
+        {/* KPI sidebar */}
+        <Col numColSpanLg={2}>
+          <div className="space-y-6">
+            <Card>
+              <div className="h-24" />
+            </Card>
+            <Card>
+              <div className="h-24" />
+            </Card>
+            <Card>
+              <div className="h-24" />
+            </Card>
+          </div>
+        </Col>
+      </Grid>
+    </main>
   );
 }
 
