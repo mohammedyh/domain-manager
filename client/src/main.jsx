@@ -5,11 +5,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
 
-if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
+const clerkPubKey = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY
+
+if (!clerkPubKey) {
   throw new Error('Missing publishable key')
 }
-
-const clerkPubKey = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY
 
 const router = createBrowserRouter([
   {
