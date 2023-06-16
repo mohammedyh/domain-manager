@@ -16,17 +16,21 @@ import {
   Title,
 } from "@tremor/react";
 import { Box, Clock4, Pencil, ShieldAlert, Trash } from "lucide-react";
-import {Link} from 'react-router-dom'
+import { useState } from "react";
+import Modal from "./components/Modal";
 
 function App() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <main className="p-8">
       <Flex justifyContent="between">
         <Title>Dashboard</Title>
         <div className="flex items-center">
-          <Button color="indigo" className="mr-10">
-            <Link to="/domains/new">Add Domain</Link>
-          </Button>
+          <Modal
+            buttonText="Add Domain"
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
           <UserButton afterSignOutUrl="/signin" />
         </div>
       </Flex>
