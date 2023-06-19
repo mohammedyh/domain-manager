@@ -20,6 +20,9 @@ dependencies:
   lucide-react:
     specifier: ^0.244.0
     version: 0.244.0(react@18.2.0)
+  prop-types:
+    specifier: ^15.8.1
+    version: 15.8.1
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -29,6 +32,9 @@ dependencies:
   react-router-dom:
     specifier: ^6.12.1
     version: 6.12.1(react-dom@18.2.0)(react@18.2.0)
+  sonner:
+    specifier: ^0.5.0
+    version: 0.5.0(react-dom@18.2.0)(react@18.2.0)
 
 devDependencies:
   '@headlessui/tailwindcss':
@@ -2804,6 +2810,16 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.2.1
       object-inspect: 1.12.3
+
+  /sonner@0.5.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-V5L4918wScYxpe3x1H92MV0vSkUqRREu8dwFf7dDTQmRMQ58r1vzSKCsULZ5HCTqxNkfCdhQXHf7rRMaj/MukQ==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

@@ -17,12 +17,14 @@ import {
 } from "@tremor/react";
 import { Box, Clock4, Pencil, ShieldAlert, Trash } from "lucide-react";
 import { useState } from "react";
+import { Toaster } from "sonner";
 import Modal from "./components/Modal";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   return (
     <main className="p-8">
+      <Toaster />
       <Flex justifyContent="between">
         <Title>Dashboard</Title>
         <div className="flex items-center">

@@ -1,10 +1,38 @@
+import { useUser } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
-import { TextInput } from "@tremor/react";
-import { Fragment } from "react";
+import { Button, TextInput } from "@tremor/react";
+import PropTypes from "prop-types";
+import { Fragment, useState } from "react";
+import { toast } from "sonner";
 
-// Add Prop Types
-// eslint-disable-next-line react/prop-types
 export default function Modal({ buttonText, showModal, setShowModal }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useUser();
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    setIsSubmitting(true);
+    const formData = new FormData(event.target);
+    const data = {
+      domainName: formData.get("domain"),
+      userId: user.id,
+    };
+
+    const addDomainRequest = await fetch("/api/domains/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const addDomainResponse = await addDomainRequest.json();
+    toast.success(addDomainResponse.message);
+
+    setShowModal(false);
+    setIsSubmitting(false);
+  }
+
   return (
     <>
       <div>
@@ -54,25 +82,29 @@ export default function Modal({ buttonText, showModal, setShowModal }) {
                     Add a Domain
                   </Dialog.Title>
 
-                  <div className="mt-4">
-                    <label className="text-sm text-slate-600">
-                      Domain Name
-                      <TextInput
-                        className="mt-1 ring-indigo-500 focus-within:ring-1"
-                        placeholder="E.g. mohammedcodes.dev"
-                      />
-                    </label>
-                  </div>
+                  <form onSubmit={handleFormSubmit}>
+                    <div className="mt-4">
+                      <label className="text-sm text-slate-600">
+                        Domain Name
+                        <TextInput
+                          className="mt-1 ring-indigo-500 focus-within:ring-1"
+                          placeholder="E.g. mohammedcodes.dev"
+                          name="domain"
+                        />
+                      </label>
+                    </div>
 
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
-                      // onClick={() => setShowModal(false)}
-                    >
-                      Add Domain
-                    </button>
-                  </div>
+                    <div className="mt-4">
+                      <Button
+                        color="indigo"
+                        type="submit"
+                        loading={isSubmitting}
+                        loadingText="Adding Domain"
+                      >
+                        Add Domain
+                      </Button>
+                    </div>
+                  </form>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -82,3 +114,9 @@ export default function Modal({ buttonText, showModal, setShowModal }) {
     </>
   );
 }
+
+Modal.propTypes = {
+  buttonText: PropTypes.string.isRequired,
+  showModal: PropTypes.bool.isRequired,
+  setShowModal: PropTypes.func.isRequired,
+};
