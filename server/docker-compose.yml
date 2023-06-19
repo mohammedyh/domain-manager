@@ -1,11 +1,10 @@
 version: "3.8"
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:15
     restart: always
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=toor
+      - POSTGRES_PASSWORD=admin
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
