@@ -8,12 +8,13 @@ datasource db {
 }
 
 model Domain {
-  id             Int      @id @default(autoincrement())
-  user           String
-  expiryDate     DateTime
-  registeredDate DateTime
-  updatedDate    DateTime
-  dnsRecords     Json
-  registrar      String
-  sslInfo        Json
+  id         Int    @id @default(autoincrement())
+  user       String
+  domainName String
+  // expiryDate     DateTime
+  // registeredDate DateTime
+  // updatedDate    DateTime
+  // dnsRecords     Json
+  // registrar      String
+  // sslInfo        Json
 }
