@@ -1,6 +1,6 @@
 # Domain Name Management Application
 
-This application helps manage your domain names. You can see when you registered them, when they’ll expire, current DNS records, the registrar and more.
+This application helps manage your domain names. You can see when you registered them, when they’ll expire, current DNS records, the domain registrar and more.
 
 ## Tech Stack
 
