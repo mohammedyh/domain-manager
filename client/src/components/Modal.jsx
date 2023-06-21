@@ -4,6 +4,7 @@ import { Button, TextInput } from "@tremor/react";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
 import { toast } from "sonner";
+import { mutate } from "swr";
 
 export default function Modal({ buttonText, showModal, setShowModal }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,6 +32,7 @@ export default function Modal({ buttonText, showModal, setShowModal }) {
     const addDomainResponse = await addDomainRequest.json();
     toast.success(addDomainResponse.message);
 
+    mutate("/api/domains");
     setShowModal(false);
     setIsSubmitting(false);
   }
