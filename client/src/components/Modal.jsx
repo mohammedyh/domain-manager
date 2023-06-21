@@ -1,4 +1,4 @@
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Button, TextInput } from "@tremor/react";
 import PropTypes from "prop-types";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 export default function Modal({ buttonText, showModal, setShowModal }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useUser();
+  const { getToken } = useAuth();
 
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -23,6 +24,7 @@ export default function Modal({ buttonText, showModal, setShowModal }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${await getToken()}`,
       },
       body: JSON.stringify(data),
     });
