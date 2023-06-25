@@ -1,8 +1,6 @@
-import { toast } from "sonner";
 import { UserButton, useAuth } from "@clerk/clerk-react";
 import {
   Badge,
-  Button,
   Card,
   Flex,
   Icon,
@@ -19,9 +17,10 @@ import {
 import dayjs from "dayjs";
 import { Box, Clock4, Pencil, ShieldAlert, Trash } from "lucide-react";
 import { useState } from "react";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 import useSWR, { mutate } from "swr";
 import AddDomainModal from "./components/AddDomainModal";
+import Button from "./components/Button";
 
 function App() {
   const { getToken } = useAuth();
@@ -96,7 +95,6 @@ function App() {
         </Card>
       </Flex>
 
-      {/* Main section */}
       <Card className="h-full mt-6">
         {!data.domains.length ? (
           <div className="flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white py-12">
@@ -169,9 +167,7 @@ function App() {
                     </TableCell>
                     <TableCell>{registrar}</TableCell>
                     <TableCell>
-                      <Button size="xs" variant="primary" color="indigo">
-                        See details
-                      </Button>
+                      <Button className="px-3">See details</Button>
                     </TableCell>
                     <TableCell>
                       <Flex justifyContent="end" className="space-x-2">

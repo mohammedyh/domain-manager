@@ -1,12 +1,12 @@
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Button, Flex, TextInput } from "@tremor/react";
+import { Flex, TextInput } from "@tremor/react";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
-import { twMerge } from "tailwind-merge";
+import Button from "./Button";
 
 export default function AddDomainModal({
   buttonText,
@@ -45,21 +45,12 @@ export default function AddDomainModal({
     setIsSubmitting(false);
   }
 
-  const buttonClasses = twMerge(
-    className,
-    "rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-opacity-75"
-  );
-
   return (
     <>
       <div>
-        <button
-          type="button"
-          onClick={() => setShowModal(true)}
-          className={buttonClasses}
-        >
+        <Button className={className} onClick={() => setShowModal(true)}>
           {buttonText}
-        </button>
+        </Button>
       </div>
 
       <Transition appear show={showModal} as={Fragment}>
@@ -120,13 +111,8 @@ export default function AddDomainModal({
                     </div>
 
                     <div className="mt-4">
-                      <Button
-                        color="indigo"
-                        type="submit"
-                        loading={isSubmitting}
-                        loadingText="Adding Domain"
-                      >
-                        Add Domain
+                      <Button type="submit">
+                        {isSubmitting ? "Adding Domain..." : "Add Domain"}
                       </Button>
                     </div>
                   </form>
