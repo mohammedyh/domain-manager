@@ -141,11 +141,16 @@ function App() {
                     <TableCell>
                       {dayjs(updatedDate).format("YYYY-MM-DD")}
                     </TableCell>
-                    {/* Make status dynamic */}
                     <TableCell>
-                      <Badge color="green" size="xs">
-                        <span className="font-medium">Active</span>
-                      </Badge>
+                      {dayjs(expiryDate).isBefore() ? (
+                        <Badge color="red" size="xs">
+                          <span className="font-medium">Expired</span>
+                        </Badge>
+                      ) : (
+                        <Badge color="green" size="xs">
+                          <span className="font-medium">Active</span>
+                        </Badge>
+                      )}
                     </TableCell>
                     <TableCell>{registrar}</TableCell>
                     <TableCell>
