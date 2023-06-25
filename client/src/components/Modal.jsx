@@ -67,6 +67,7 @@ export default function Modal({
           as="div"
           className="relative z-10"
           onClose={() => setShowModal(false)}
+          initialFocus={modalInputRef}
         >
           <Transition.Child
             as={Fragment}
@@ -92,12 +93,18 @@ export default function Modal({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h2"
-                    className="text-lg font-semibold leading-6 text-gray-900"
-                  >
-                    Add a Domain
-                  </Dialog.Title>
+                  <Flex>
+                    <Dialog.Title
+                      as="h2"
+                      className="text-lg font-semibold leading-6 text-gray-900"
+                    >
+                      Add a Domain
+                    </Dialog.Title>
+
+                    <button onClick={() => setShowModal(false)}>
+                      <X className="stroke-slate-500 hover:stroke-slate-800 transition-colors" />
+                    </button>
+                  </Flex>
 
                   <form onSubmit={handleFormSubmit}>
                     <div className="mt-4">
@@ -107,6 +114,7 @@ export default function Modal({
                           className="mt-1 ring-indigo-500 focus-within:ring-1"
                           placeholder="E.g. mohammedcodes.dev"
                           name="domain"
+                          ref={modalInputRef}
                         />
                       </label>
                     </div>
