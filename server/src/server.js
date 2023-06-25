@@ -14,9 +14,9 @@ async function getWhoisData(domain) {
   // TODO: handle edge-case where domain doesn't exist
   for (const registry in whoisData) {
     selectedWhoisData = {
-      expiryDate: whoisData[registry]["Expiry Date"],
-      createdDate: whoisData[registry]["Created Date"],
-      updatedDate: whoisData[registry]["Updated Date"],
+      expiryDate: new Date(whoisData[registry]["Expiry Date"]),
+      createdDate: new Date(whoisData[registry]["Created Date"]),
+      updatedDate: new Date(whoisData[registry]["Updated Date"]),
       registrar: whoisData[registry]["Registrar"],
     };
   }
