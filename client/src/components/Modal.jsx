@@ -1,12 +1,20 @@
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Button, TextInput } from "@tremor/react";
+import { Button, Flex, TextInput } from "@tremor/react";
+import { X } from "lucide-react";
 import PropTypes from "prop-types";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
+import { twMerge } from "tailwind-merge";
 
-export default function Modal({ buttonText, showModal, setShowModal }) {
+export default function Modal({
+  buttonText,
+  showModal,
+  setShowModal,
+  className,
+}) {
+  const modalInputRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useUser();
   const { getToken } = useAuth();
@@ -37,13 +45,18 @@ export default function Modal({ buttonText, showModal, setShowModal }) {
     setIsSubmitting(false);
   }
 
+  const buttonClasses = twMerge(
+    className,
+    "rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-opacity-75"
+  );
+
   return (
     <>
       <div>
         <button
           type="button"
           onClick={() => setShowModal(true)}
-          className="rounded-md bg-indigo-600 mr-10 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-opacity-75"
+          className={buttonClasses}
         >
           {buttonText}
         </button>

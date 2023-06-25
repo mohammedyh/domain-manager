@@ -17,6 +17,9 @@ dependencies:
   '@tremor/react':
     specifier: ^3.0.1
     version: 3.0.1(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)(tailwindcss@3.3.2)
+  dayjs:
+    specifier: ^1.11.8
+    version: 1.11.8
   lucide-react:
     specifier: ^0.244.0
     version: 0.244.0(react@18.2.0)
@@ -38,6 +41,9 @@ dependencies:
   swr:
     specifier: ^2.1.5
     version: 2.1.5(react@18.2.0)
+  tailwind-merge:
+    specifier: ^1.13.2
+    version: 1.13.2
 
 devDependencies:
   '@headlessui/tailwindcss':
@@ -825,7 +831,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       react-transition-group: 4.4.5(react-dom@18.2.0)(react@18.2.0)
       recharts: 2.7.0-alpha.0(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
-      tailwind-merge: 1.13.1
+      tailwind-merge: 1.13.2
     transitivePeerDependencies:
       - prop-types
       - tailwindcss
@@ -1342,6 +1348,10 @@ packages:
     engines: {node: '>=0.11'}
     dependencies:
       '@babel/runtime': 7.22.5
+    dev: false
+
+  /dayjs@1.11.8:
+    resolution: {integrity: sha512-LcgxzFoWMEPO7ggRv1Y2N31hUf2R0Vj7fuy/m+Bg1K8rr+KAs1AEy4y9jd5DXe8pbHgX+srkHNS7TH6Q6ZhYeQ==}
     dev: false
 
   /debug@4.3.4:
@@ -2935,8 +2945,8 @@ packages:
     resolution: {integrity: sha512-qCN98uP7i9z0fIS4amQ5zbGBOq+OSigYeGvPy7NDk8Y9yncqDZ9pRPgfsc2PJIVM9RrJj7GIfuRgmjoUU9zTHQ==}
     dev: false
 
-  /tailwind-merge@1.13.1:
-    resolution: {integrity: sha512-tRtRN22TDokGi2TuYSvuHQuuW6BJ/zlUEG+iYpAQ9i66msc/0eU/+HPccbPnNNH0mCPp0Ob8thaC8Uy9CxHitQ==}
+  /tailwind-merge@1.13.2:
+    resolution: {integrity: sha512-R2/nULkdg1VR/EL4RXg4dEohdoxNUJGLMnWIQnPKL+O9Twu7Cn3Rxi4dlXkDzZrEGtR+G+psSXFouWlpTyLhCQ==}
     dev: false
 
   /tailwindcss@3.3.2:
