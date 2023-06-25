@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { UserButton, useAuth } from "@clerk/clerk-react";
 import {
   Badge,
@@ -40,6 +41,7 @@ function App() {
         <Title>Dashboard</Title>
         <div className="flex items-center">
           <Modal
+            className="mr-10"
             buttonText="Add Domain"
             showModal={showModal}
             setShowModal={setShowModal}
@@ -64,7 +66,7 @@ function App() {
             <Icon icon={Clock4} variant="light" size="xl" color="indigo" />
             <div>
               <Text>Domains Expiring This Month</Text>
-              <Metric className="mt-2">2</Metric>
+              <Metric className="mt-2">0</Metric>
             </div>
           </Flex>
         </Card>
@@ -74,7 +76,7 @@ function App() {
             <Icon icon={ShieldAlert} variant="light" size="xl" color="indigo" />
             <div>
               <Text>Domains SSL Expiring This Month</Text>
-              <Metric className="mt-2">2</Metric>
+              <Metric className="mt-2">0</Metric>
             </div>
           </Flex>
         </Card>
@@ -82,62 +84,101 @@ function App() {
 
       {/* Main section */}
       <Card className="h-full mt-6">
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableHeaderCell>Domain</TableHeaderCell>
-              <TableHeaderCell>Expires On</TableHeaderCell>
-              <TableHeaderCell>Registered On</TableHeaderCell>
-              <TableHeaderCell>Updated On</TableHeaderCell>
-              <TableHeaderCell>Status</TableHeaderCell>
-              <TableHeaderCell>Registrar</TableHeaderCell>
-              <TableHeaderCell>DNS / SSL Info</TableHeaderCell>
-              <TableHeaderCell className="text-right">Actions</TableHeaderCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {data.domains.map(({ domainName }) => (
-              <TableRow key={domainName}>
-                <TableCell>{domainName}</TableCell>
-                <TableCell>05/04/2024</TableCell>
-                <TableCell>05/04/2023</TableCell>
-                <TableCell>12/04/2023</TableCell>
-                <TableCell>
-                  <Badge color="green" size="xs">
-                    <span className="font-medium">Active</span>
-                  </Badge>
-                </TableCell>
-                <TableCell>Namecheap</TableCell>
-                <TableCell>
-                  <Button size="xs" variant="primary" color="indigo">
-                    See details
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <Flex justifyContent="end" className="space-x-2">
-                    <button>
-                      <Icon
-                        icon={Pencil}
-                        variant="light"
-                        size="md"
-                        color="indigo"
-                      />
-                    </button>
-                    <button>
-                      <Icon
-                        icon={Trash}
-                        variant="light"
-                        size="md"
-                        color="red"
-                      />
-                    </button>
-                  </Flex>
-                </TableCell>
+        {!data.domains.length ? (
+          <div className="flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white py-12">
+            <h2 className="z-10 text-xl font-semibold text-gray-700">
+              You {"don't"} have any domains yet!
+            </h2>
+            <img
+              alt="No domains have been created yet"
+              loading="lazy"
+              width="250"
+              height="250"
+              className="pointer-events-none blur-0 my-4"
+              src="/product-launch.svg"
+            />
+            <button
+              className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-opacity-75"
+              onClick={() => setShowModal(true)}
+            >
+              Add a Domain
+            </button>
+          </div>
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell>Domain</TableHeaderCell>
+                <TableHeaderCell>Expires On</TableHeaderCell>
+                <TableHeaderCell>Registered On</TableHeaderCell>
+                <TableHeaderCell>Updated On</TableHeaderCell>
+                <TableHeaderCell>Status</TableHeaderCell>
+                <TableHeaderCell>Registrar</TableHeaderCell>
+                <TableHeaderCell>DNS / SSL Info</TableHeaderCell>
+                <TableHeaderCell className="text-right">
+                  Actions
+                </TableHeaderCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+
+            <TableBody>
+              {data.domains.map(
+                ({
+                  domainName,
+                  expiryDate,
+                  registeredDate,
+                  registrar,
+                  updatedDate,
+                }) => (
+                  <TableRow key={domainName}>
+                    <TableCell>{domainName}</TableCell>
+                    <TableCell>
+                      {dayjs(expiryDate).format("YYYY-MM-DD")}
+                    </TableCell>
+                    <TableCell>
+                      {dayjs(registeredDate).format("YYYY-MM-DD")}
+                    </TableCell>
+                    <TableCell>
+                      {dayjs(updatedDate).format("YYYY-MM-DD")}
+                    </TableCell>
+                    {/* Make status dynamic */}
+                    <TableCell>
+                      <Badge color="green" size="xs">
+                        <span className="font-medium">Active</span>
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{registrar}</TableCell>
+                    <TableCell>
+                      <Button size="xs" variant="primary" color="indigo">
+                        See details
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Flex justifyContent="end" className="space-x-2">
+                        <button>
+                          <Icon
+                            icon={Pencil}
+                            variant="light"
+                            size="md"
+                            color="indigo"
+                          />
+                        </button>
+                        <button>
+                          <Icon
+                            icon={Trash}
+                            variant="light"
+                            size="md"
+                            color="red"
+                          />
+                        </button>
+                      </Flex>
+                    </TableCell>
+                  </TableRow>
+                )
+              )}
+            </TableBody>
+          </Table>
+        )}
       </Card>
     </main>
   );
