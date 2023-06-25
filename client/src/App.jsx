@@ -21,7 +21,7 @@ import { Box, Clock4, Pencil, ShieldAlert, Trash } from "lucide-react";
 import { useState } from "react";
 import { Toaster } from "sonner";
 import useSWR, { mutate } from "swr";
-import Modal from "./components/Modal";
+import AddDomainModal from "./components/AddDomainModal";
 
 function App() {
   const { getToken } = useAuth();
@@ -54,7 +54,7 @@ function App() {
       <Flex justifyContent="between">
         <Title>Dashboard</Title>
         <div className="flex items-center">
-          <Modal
+          <AddDomainModal
             className="mr-10"
             buttonText="Add Domain"
             showModal={showModal}

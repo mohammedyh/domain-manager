@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { mutate } from "swr";
 import { twMerge } from "tailwind-merge";
 
-export default function Modal({
+export default function AddDomainModal({
   buttonText,
   showModal,
   setShowModal,
@@ -140,7 +140,7 @@ export default function Modal({
   );
 }
 
-Modal.propTypes = {
+AddDomainModal.propTypes = {
   buttonText: PropTypes.string.isRequired,
   className: PropTypes.string,
   showModal: PropTypes.bool.isRequired,
