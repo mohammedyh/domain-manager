@@ -142,6 +142,7 @@ export default function Modal({
 
 Modal.propTypes = {
   buttonText: PropTypes.string.isRequired,
+  className: PropTypes.string,
   showModal: PropTypes.bool.isRequired,
   setShowModal: PropTypes.func.isRequired,
 };
