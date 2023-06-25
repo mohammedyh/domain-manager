@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import { toast } from "sonner";
 import { UserButton, useAuth } from "@clerk/clerk-react";
 import {
   Badge,
@@ -16,10 +16,11 @@ import {
   Text,
   Title,
 } from "@tremor/react";
+import dayjs from "dayjs";
 import { Box, Clock4, Pencil, ShieldAlert, Trash } from "lucide-react";
 import { useState } from "react";
 import { Toaster } from "sonner";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import Modal from "./components/Modal";
 
 function App() {
@@ -28,8 +29,21 @@ function App() {
     fetch(url, {
       headers: { Authorization: `Bearer ${await getToken()}` },
     }).then((res) => res.json());
+
   const { data, error, isLoading } = useSWR("/api/domains", fetcher);
   const [showModal, setShowModal] = useState(false);
+
+  async function deleteDomainById(id) {
+    const deleteDomainRequest = await fetch(`/api/domains/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
+    });
+    const { message } = await deleteDomainRequest.json();
+    toast.success(message);
+    mutate("/api/domains");
+  }
 
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
@@ -124,6 +138,7 @@ function App() {
             <TableBody>
               {data.domains.map(
                 ({
+                  id,
                   domainName,
                   expiryDate,
                   registeredDate,
@@ -168,7 +183,7 @@ function App() {
                             color="indigo"
                           />
                         </button>
-                        <button>
+                        <button onClick={() => deleteDomainById(id)}>
                           <Icon
                             icon={Trash}
                             variant="light"
