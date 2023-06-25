@@ -31,6 +31,7 @@ app.get("/api/domains", async (req, res) => {
   const domains = await prisma.domain.findMany({
     where: { user: req.auth.userId },
     select: {
+      id: true,
       domainName: true,
       registrar: true,
       expiryDate: true,
@@ -67,6 +68,20 @@ app.post("/api/domains/add", async (req, res) => {
   });
 
   return res.json({ message: "Successfully created domain", domain });
+});
+
+app.delete("/api/domains/:id", async (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).json({ error: "Domain ID not provided." });
+  }
+
+  try {
+    await prisma.domain.delete({ where: { id: parseInt(req.params.id) } });
+    return res.status(200).json({ message: "Domain deleted successfully." });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Something went wrong." });
+  }
 });
 
 app.listen(PORT, () =>
