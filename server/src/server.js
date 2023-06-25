@@ -13,7 +13,13 @@ app.use(express.json());
 app.get("/api/domains", async (req, res) => {
   const domains = await prisma.domain.findMany({
     where: { user: req.auth.userId },
-    select: { domainName: true },
+    select: {
+      domainName: true,
+      registrar: true,
+      expiryDate: true,
+      registeredDate: true,
+      updatedDate: true,
+    },
   });
 
   if (!domains) {
