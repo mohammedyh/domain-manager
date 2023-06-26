@@ -10,7 +10,7 @@ datasource db {
 model Domain {
   id             Int      @id @default(autoincrement())
   user           String
-  domainName     String
+  domainName     String   @unique
   registrar      String
   expiryDate     DateTime
   registeredDate DateTime

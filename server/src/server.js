@@ -54,6 +54,11 @@ app.post("/api/domains/add", async (req, res) => {
     return res.status(400).json({ message: "Domain name is missing" });
   }
 
+  if (await prisma.domain.findFirst({ where: { domainName } })) {
+    return res.status(409).json({ message: "Domain already exists" });
+  }
+
+  // Handle case where domain doesn't exist
   const domainWhoisFields = await getWhoisData(domainName);
 
   const domain = await prisma.domain.create({
