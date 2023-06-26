@@ -97,7 +97,7 @@ function App() {
 
       <Card className="h-full mt-6">
         {!data.domains.length ? (
-          <div className="flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white py-12">
+          <div className="flex flex-col items-center justify-center rounded-md bg-white py-12">
             <h2 className="z-10 text-xl font-semibold text-gray-700">
               You {"don't"} have any domains yet!
             </h2>
