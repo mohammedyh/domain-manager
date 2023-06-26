@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { Fragment, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
+import { domainSchema } from "../lib/schema";
 import Button from "./Button";
 
 export default function AddDomainModal({
@@ -16,33 +17,48 @@ export default function AddDomainModal({
 }) {
   const modalInputRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const { user } = useUser();
   const { getToken } = useAuth();
 
   async function handleFormSubmit(event) {
     event.preventDefault();
-
     setIsSubmitting(true);
-    const formData = new FormData(event.target);
-    const data = {
-      domainName: formData.get("domain"),
-      userId: user.id,
-    };
 
-    const addDomainRequest = await fetch("/api/domains/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${await getToken()}`,
-      },
-      body: JSON.stringify(data),
-    });
-    const addDomainResponse = await addDomainRequest.json();
-    toast.success(addDomainResponse.message);
+    try {
+      const formData = new FormData(event.target);
+      const domainName = await domainSchema.validate(formData.get("domain"));
+      const data = {
+        domainName,
+        userId: user.id,
+      };
 
-    mutate("/api/domains");
-    setShowModal(false);
-    setIsSubmitting(false);
+      const addDomainRequest = await fetch("/api/domains/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${await getToken()}`,
+        },
+        body: JSON.stringify(data),
+      });
+      const { message } = await addDomainRequest.json();
+
+      if (!addDomainRequest.ok) {
+        setIsSubmitting(false);
+        toast.error(message);
+        event.target.reset();
+        return;
+      }
+
+      toast.success(message);
+      mutate("/api/domains");
+      setShowModal(false);
+      setIsSubmitting(false);
+      setError("");
+    } catch (error) {
+      setError(error.message);
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -105,6 +121,8 @@ export default function AddDomainModal({
                           className="mt-1 ring-indigo-500 focus-within:ring-1"
                           placeholder="E.g. mohammedcodes.dev"
                           name="domain"
+                          error={!!error}
+                          errorMessage={error}
                           ref={modalInputRef}
                         />
                       </label>
