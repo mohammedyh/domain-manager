@@ -21,6 +21,7 @@ import { Toaster, toast } from "sonner";
 import useSWR, { mutate } from "swr";
 import AddDomainModal from "./components/AddDomainModal";
 import Button from "./components/Button";
+import ErrorScreen from "./components/ErrorScreen";
 import LoadingSkeleton from "./components/LoadingSkeleton";
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
     mutate("/api/domains");
   }
 
-  if (error) return <div>Failed to load</div>;
+  if (error) return <ErrorScreen />;
   if (isLoading) return <LoadingSkeleton />;
 
   return (
