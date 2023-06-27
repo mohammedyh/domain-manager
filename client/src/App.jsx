@@ -21,6 +21,7 @@ import { Toaster, toast } from "sonner";
 import useSWR, { mutate } from "swr";
 import AddDomainModal from "./components/AddDomainModal";
 import Button from "./components/Button";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 
 function App() {
   const { getToken } = useAuth();
@@ -35,9 +36,7 @@ function App() {
   async function deleteDomainById(id) {
     const deleteDomainRequest = await fetch(`/api/domains/${id}`, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${await getToken()}`,
-      },
+      headers: { Authorization: `Bearer ${await getToken()}` },
     });
     const { message } = await deleteDomainRequest.json();
     toast.success(message);
@@ -45,7 +44,7 @@ function App() {
   }
 
   if (error) return <div>Failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <main className="p-8">
