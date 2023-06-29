@@ -51,13 +51,11 @@ app.get("/api/domains", async (req, res) => {
   if (!domains) {
     return res.status(200).json({ message: "No domains found" });
   }
-
   return res.status(200).json({ domains, success: "true" });
 });
 
 app.post("/api/domains/add", async (req, res) => {
   const { domainName, userId } = req.body;
-
   if (!domainName) {
     return res.status(400).json({ message: "Domain name is missing" });
   }
@@ -66,20 +64,28 @@ app.post("/api/domains/add", async (req, res) => {
     return res.status(409).json({ message: "Domain has already been added" });
   }
 
-  const domainWhoisFields = await getWhoisData(domainName);
+  try {
+    const domainWhoisFields = await getWhoisData(domainName);
+    if (!domainWhoisFields.createdDate || !domainWhoisFields.registrar) {
+      return res
+        .status(404)
+        .json({ message: "Failed to fetch domain information" });
+    }
 
-  const domain = await prisma.domain.create({
-    data: {
-      domainName,
-      user: userId,
-      registrar: domainWhoisFields.registrar,
-      expiryDate: domainWhoisFields.expiryDate,
-      registeredDate: domainWhoisFields.createdDate,
-      updatedDate: domainWhoisFields.updatedDate,
-    },
-  });
-
-  return res.json({ message: "Successfully created domain", domain });
+    const domain = await prisma.domain.create({
+      data: {
+        domainName,
+        user: userId,
+        registrar: domainWhoisFields.registrar,
+        expiryDate: domainWhoisFields.expiryDate,
+        registeredDate: domainWhoisFields.createdDate,
+        updatedDate: domainWhoisFields.updatedDate,
+      },
+    });
+    return res.json({ message: "Successfully created domain", domain });
+  } catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
 });
 
 app.delete("/api/domains/:id", async (req, res) => {
