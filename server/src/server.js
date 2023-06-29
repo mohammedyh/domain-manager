@@ -1,4 +1,5 @@
 import "dotenv/config";
+import dns from "dns/promises";
 import express from "express";
 import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 import { PrismaClient } from "@prisma/client";
@@ -9,19 +10,26 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 async function getWhoisData(domain) {
-  const whoisData = await whoiser.domain(domain, { follow: 1 });
-  let selectedWhoisData;
-  // TODO: handle edge-case where domain doesn't exist
-  for (const registry in whoisData) {
-    selectedWhoisData = {
-      expiryDate: new Date(whoisData[registry]["Expiry Date"]),
-      createdDate: new Date(whoisData[registry]["Created Date"]),
-      updatedDate: new Date(whoisData[registry]["Updated Date"]),
-      registrar: whoisData[registry]["Registrar"],
-    };
+  try {
+    await dns.lookup(domain);
+    const whoisData = await whoiser.domain(domain, { follow: 1 });
+    let selectedWhoisData;
+    for (const registry in whoisData) {
+      const expiryDate = whoisData[registry]["Expiry Date"];
+      const createdDate = whoisData[registry]["Created Date"];
+      const updatedDate = whoisData[registry]["Updated Date"];
+      const registrar = whoisData[registry]["Registrar"];
+      selectedWhoisData = {
+        expiryDate: expiryDate && new Date(expiryDate),
+        createdDate: createdDate && new Date(createdDate),
+        updatedDate: updatedDate && new Date(updatedDate),
+        registrar: registrar,
+      };
+    }
+    return selectedWhoisData;
+  } catch {
+    throw new Error("Domain doesn't exist");
   }
-
-  return selectedWhoisData;
 }
 
 app.use(ClerkExpressRequireAuth());
