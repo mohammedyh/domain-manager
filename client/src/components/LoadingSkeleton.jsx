@@ -8,6 +8,7 @@ export default function LoadingSkeleton() {
 
       <div className="mt-16 h-28 rounded-lg bg-indigo-600/30" />
       <div className="mt-6 h-48 rounded-lg bg-indigo-600/30" />
+      <div className="mt-6 h-48 rounded-lg bg-indigo-600/30" />
     </div>
   );
 }
