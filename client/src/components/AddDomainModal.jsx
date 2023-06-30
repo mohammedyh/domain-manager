@@ -119,7 +119,7 @@ export default function AddDomainModal({
                         Domain Name
                         <TextInput
                           className="mt-1 ring-indigo-500 focus-within:ring-1"
-                          placeholder="E.g. mohammedcodes.dev"
+                          placeholder="e.g. mohammedcodes.dev"
                           name="domain"
                           error={!!error}
                           errorMessage={error}
