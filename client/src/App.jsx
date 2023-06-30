@@ -126,7 +126,6 @@ function App() {
                 <TableHeaderCell>Updated On</TableHeaderCell>
                 <TableHeaderCell>Status</TableHeaderCell>
                 <TableHeaderCell>Registrar</TableHeaderCell>
-                <TableHeaderCell>DNS / SSL Info</TableHeaderCell>
                 <TableHeaderCell className="text-right">
                   Actions
                 </TableHeaderCell>
@@ -167,10 +166,14 @@ function App() {
                     </TableCell>
                     <TableCell>{registrar}</TableCell>
                     <TableCell>
-                      <Button className="px-3">See details</Button>
-                    </TableCell>
-                    <TableCell>
                       <Flex justifyContent="end" className="space-x-2">
+                        <Button
+                          className="px-3 text-xs"
+                          onClick={() => getDomainDetails(domainName)}
+                        >
+                          View Domain Info
+                        </Button>
+
                         <button onClick={() => deleteDomainById(id)}>
                           <Icon
                             icon={Trash}
