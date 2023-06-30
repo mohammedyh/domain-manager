@@ -1,5 +1,6 @@
 import "dotenv/config";
 import dns from "dns/promises";
+import dnsRecords from "@layered/dns-records";
 import express from "express";
 import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 import { PrismaClient } from "@prisma/client";
@@ -86,6 +87,16 @@ app.post("/api/domains/add", async (req, res) => {
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
+});
+
+app.get("/api/domains/:domainName", async (req, res) => {
+  const { domainName } = req.params;
+  const records = await dnsRecords.getAllRecords(domainName);
+  const filteredRecords = Object.values(records).flatMap((recordType) =>
+    recordType.filter((recordObj) => recordObj.name === domainName)
+  );
+
+  return res.status(200).json({ domain: domainName, records: filteredRecords });
 });
 
 app.delete("/api/domains/:id", async (req, res) => {
