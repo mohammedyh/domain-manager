@@ -15,7 +15,7 @@ import {
   Title,
 } from "@tremor/react";
 import dayjs from "dayjs";
-import { Box, Clock4, Pencil, ShieldAlert, Trash } from "lucide-react";
+import { Box, Clock4, ShieldAlert, Trash } from "lucide-react";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import useSWR, { mutate } from "swr";
@@ -171,14 +171,6 @@ function App() {
                     </TableCell>
                     <TableCell>
                       <Flex justifyContent="end" className="space-x-2">
-                        <button>
-                          <Icon
-                            icon={Pencil}
-                            variant="light"
-                            size="md"
-                            color="indigo"
-                          />
-                        </button>
                         <button onClick={() => deleteDomainById(id)}>
                           <Icon
                             icon={Trash}
