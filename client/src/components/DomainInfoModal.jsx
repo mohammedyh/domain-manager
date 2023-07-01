@@ -71,7 +71,6 @@ export default function DomainInfoModal({ buttonText, domainName }) {
               >
                 <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
                   {isLoading ? (
-                    // Make a dedicated loading skeleton for this modal
                     <LoadingSkeleton />
                   ) : (
                     <>
@@ -80,7 +79,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                           as="h3"
                           className="text-lg font-medium leading-6 text-gray-900"
                         >
-                          Domain Name: {domainDetails.domain}
+                          Domain: {domainDetails.domain}
                         </Dialog.Title>
 
                         <button onClick={() => setIsOpen(false)}>
@@ -105,12 +104,10 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                             {domainDetails?.records?.map((record) => (
                               <TableRow key={record.name}>
                                 <TableCell>{record.type}</TableCell>
-                                <TableCell>
-                                  <Text>{record.value}</Text>
+                                <TableCell className="whitespace-normal max-w-5xl">
+                                  {record.value}
                                 </TableCell>
-                                <TableCell>
-                                  <Text>{record.ttl}</Text>
-                                </TableCell>
+                                <TableCell>{record.ttl}</TableCell>
                               </TableRow>
                             ))}
                           </TableBody>
