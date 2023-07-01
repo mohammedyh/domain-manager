@@ -6,14 +6,14 @@ DomainHive helps you manage your domains effortlessly. You can see when your dom
 
 ## Tech Stack
 
-**Client:** React, React Router
+**Client:** React, React Router, SWR
 
-**Styling:** Tremor, TailwindCSS
+**Styling:** Tremor, HeadlessUI, TailwindCSS
 
 **Server:** Node, Express
 
-**Database:** Prisma
+**Database:** Postgres, Prisma
 
 **Auth:** Clerk
 
-**Tooling:** Vite, ESLint, Prettier
+**Tooling:** Vite, PostCSS, ESLint, Prettier
