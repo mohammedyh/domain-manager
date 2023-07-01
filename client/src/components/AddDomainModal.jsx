@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Flex, TextInput } from "@tremor/react";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
 import { domainSchema } from "../lib/schema";
@@ -20,6 +20,24 @@ export default function AddDomainModal({
   const [error, setError] = useState("");
   const { user } = useUser();
   const { getToken } = useAuth();
+
+  const onKeyDown = useCallback(
+    (event) => {
+      const existingOpenModal = document.querySelector(
+        '[data-headlessui-state="open"]'
+      );
+      if (event.key !== "a" || showModal || existingOpenModal) return;
+
+      event.preventDefault();
+      setShowModal(true);
+    },
+    [showModal, setShowModal]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onKeyDown]);
 
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -66,6 +84,9 @@ export default function AddDomainModal({
       <div>
         <Button className={className} onClick={() => setShowModal(true)}>
           {buttonText}
+          <kbd className="rounded ml-3 bg-indigo-400/60 px-2 py-0.5 text-xs font-light text-indigo-100">
+            A
+          </kbd>
         </Button>
       </div>
 
