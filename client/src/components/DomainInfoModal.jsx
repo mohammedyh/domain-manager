@@ -100,8 +100,8 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {domainDetails?.records?.map((record) => (
-                              <TableRow key={record.name}>
+                            {domainDetails?.records?.map((record, index) => (
+                              <TableRow key={index}>
                                 <TableCell>{record.type}</TableCell>
                                 <TableCell className="whitespace-normal max-w-5xl">
                                   {record.value}
