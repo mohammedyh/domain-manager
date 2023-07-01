@@ -142,7 +142,7 @@ function App() {
                   registrar,
                   updatedDate,
                 }) => (
-                  <TableRow key={domainName}>
+                  <TableRow key={id}>
                     <TableCell>{domainName}</TableCell>
                     <TableCell>
                       {dayjs(expiryDate).format("YYYY-MM-DD")}
