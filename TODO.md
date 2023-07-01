@@ -1,7 +1,4 @@
 Client:
 - Update auth method - must force users set first/last name
-- Show DNS Records in modal
-
-Server:
-- Decide if domains should be update-able
-- Create endpoint to fetch DNS records for domains
+- Organise functions that query the api into api.js file or similar
+- See if it's possible to use useSWR in DomainInfoModal: <https://github.com/vercel/swr/issues/254>
