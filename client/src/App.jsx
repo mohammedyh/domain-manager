@@ -45,7 +45,7 @@ function App() {
   }
 
   if (error) return <ErrorScreen />;
-  if (isLoading) return <LoadingSkeleton />;
+  if (isLoading) return <LoadingSkeleton type="dashboard" />;
 
   return (
     <main className="p-8">
