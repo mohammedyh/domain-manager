@@ -8,7 +8,6 @@ import {
   TableHead,
   TableHeaderCell,
   TableRow,
-  Text,
 } from "@tremor/react";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
