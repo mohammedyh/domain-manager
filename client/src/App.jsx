@@ -20,7 +20,7 @@ import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import useSWR, { mutate } from "swr";
 import AddDomainModal from "./components/AddDomainModal";
-import Button from "./components/Button";
+import DomainInfoModal from "./components/DomainInfoModal";
 import ErrorScreen from "./components/ErrorScreen";
 import LoadingSkeleton from "./components/LoadingSkeleton";
 
@@ -167,12 +167,10 @@ function App() {
                     <TableCell>{registrar}</TableCell>
                     <TableCell>
                       <Flex justifyContent="end" className="space-x-2">
-                        <Button
-                          className="px-3 text-xs"
-                          onClick={() => getDomainDetails(domainName)}
-                        >
-                          View Domain Info
-                        </Button>
+                        <DomainInfoModal
+                          buttonText="View Domain Info"
+                          domainName={domainName}
+                        />
 
                         <button onClick={() => deleteDomainById(id)}>
                           <Icon
