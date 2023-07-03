@@ -5,6 +5,7 @@ import express from "express";
 import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 import { PrismaClient } from "@prisma/client";
 import whoiser from "whoiser";
+import sslChecker from "ssl-checker";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -95,8 +96,17 @@ app.get("/api/domains/:domainName", async (req, res) => {
   const filteredRecords = Object.values(records).flatMap((recordType) =>
     recordType.filter((recordObj) => recordObj.name === domainName)
   );
+  let sslInfo;
 
-  return res.status(200).json({ domain: domainName, records: filteredRecords });
+  try {
+    sslInfo = await sslChecker("mohammedcodes.dev");
+  } catch (error) {
+    sslInfo = `Unable to retrieve SSL information for ${domainName}`;
+  }
+
+  return res
+    .status(200)
+    .json({ domain: domainName, records: filteredRecords, sslInfo });
 });
 
 app.delete("/api/domains/:id", async (req, res) => {
