@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Tab, Transition } from "@headlessui/react";
 import {
   Flex,
   Table,
@@ -9,6 +9,7 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@tremor/react";
+import dayjs from "dayjs";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
@@ -90,29 +91,8 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                           Here are the DNS records and SSL information for{" "}
                           {domainDetails.domain}
                         </p>
-
-                        <Table className="mt-5">
-                          <TableHead>
-                            <TableRow>
-                              <TableHeaderCell>Type</TableHeaderCell>
-                              <TableHeaderCell>Value</TableHeaderCell>
-                              <TableHeaderCell>TTL</TableHeaderCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {domainDetails?.records?.map((record, index) => (
-                              <TableRow key={index}>
-                                <TableCell>{record.type}</TableCell>
-                                <TableCell className="whitespace-normal max-w-5xl">
-                                  {record.value}
-                                </TableCell>
-                                <TableCell>{record.ttl}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
                       </div>
-
+                      <DomainInfoTabs data={domainDetails} />
                       <div className="mt-4">
                         <Button onClick={() => setIsOpen(false)}>Close</Button>
                       </div>
@@ -125,6 +105,98 @@ export default function DomainInfoModal({ buttonText, domainName }) {
         </Dialog>
       </Transition>
     </>
+  );
+}
+
+// TODO: Add prop types to component
+export function DomainInfoTabs({ data }) {
+  return (
+    <Tab.Group as="div" className="mt-6">
+      <Tab.List className="space-x-5 border-b border-gray-200">
+        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+          DNS Records
+        </Tab>
+        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+          SSL Info
+        </Tab>
+      </Tab.List>
+      <Tab.Panels>
+        <Tab.Panel>
+          <Table className="mt-5">
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell>Type</TableHeaderCell>
+                <TableHeaderCell>Value</TableHeaderCell>
+                <TableHeaderCell>TTL</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data?.records?.map((record, index) => (
+                <TableRow key={index}>
+                  <TableCell>{record.type}</TableCell>
+                  <TableCell className="whitespace-normal max-w-5xl">
+                    {record.value}
+                  </TableCell>
+                  <TableCell>{record.ttl}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Tab.Panel>
+        <Tab.Panel>
+          {!data.sslInfo.validFrom || !data.sslInfo.validTo ? (
+            <div className="my-6 flex flex-col justify-center text-center items-center">
+              <img
+                src="https://illustrations.popsy.co/violet/falling.svg"
+                className="pointer-events-none blur-0 my-2"
+                alt="No SSL information available"
+                width="250"
+                height="250"
+                loading="lazy"
+              />
+              <h2 className="text-2xl font-medium">
+                SSL Information Unavailable
+              </h2>
+              <p className="mt-4 max-w-xl">
+                The {"website's"} SSL information could not be displayed. Please
+                ensure that the domain has a valid SSL certificate.
+              </p>
+            </div>
+          ) : (
+            <Table className="mt-5">
+              <TableHead>
+                <TableRow>
+                  <TableHeaderCell>Days Remaining</TableHeaderCell>
+                  <TableHeaderCell>Valid</TableHeaderCell>
+                  <TableHeaderCell>Valid From</TableHeaderCell>
+                  <TableHeaderCell>Valid To</TableHeaderCell>
+                  <TableHeaderCell>Valid For</TableHeaderCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>{data?.sslInfo?.daysRemaining}</TableCell>
+                  <TableCell className="whitespace-normal max-w-5xl">
+                    {data?.sslInfo?.valid ? "Yes" : "No"}
+                  </TableCell>
+                  <TableCell>
+                    {dayjs(data?.sslInfo?.validFrom).format("YYYY-MM-DD")}
+                  </TableCell>
+                  <TableCell>
+                    {dayjs(data?.sslInfo?.validTo).format("YYYY-MM-DD")}
+                  </TableCell>
+                  <TableCell>
+                    {data?.sslInfo?.validFor?.length > 1
+                      ? data?.sslInfo?.validFor.join(", ")
+                      : data?.sslInfo?.validFor}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          )}
+        </Tab.Panel>
+      </Tab.Panels>
+    </Tab.Group>
   );
 }
 
