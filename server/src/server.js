@@ -99,7 +99,7 @@ app.get("/api/domains/:domainName", async (req, res) => {
   let sslInfo;
 
   try {
-    sslInfo = await sslChecker("mohammedcodes.dev");
+    sslInfo = await sslChecker(domainName);
   } catch (error) {
     sslInfo = `Unable to retrieve SSL information for ${domainName}`;
   }
