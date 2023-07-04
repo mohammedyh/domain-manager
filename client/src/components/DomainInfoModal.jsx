@@ -108,15 +108,20 @@ export default function DomainInfoModal({ buttonText, domainName }) {
   );
 }
 
-// TODO: Add prop types to component
+DomainInfoModal.propTypes = {
+  buttonText: PropTypes.string.isRequired,
+  domainName: PropTypes.string.isRequired,
+};
+
 export function DomainInfoTabs({ data }) {
+  console.log(data);
   return (
     <Tab.Group as="div" className="mt-6">
       <Tab.List className="space-x-5 border-b border-gray-200">
-        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
           DNS Records
         </Tab>
-        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
+        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
           SSL Info
         </Tab>
       </Tab.List>
@@ -200,7 +205,18 @@ export function DomainInfoTabs({ data }) {
   );
 }
 
-DomainInfoModal.propTypes = {
-  buttonText: PropTypes.string.isRequired,
-  domainName: PropTypes.string.isRequired,
+DomainInfoTabs.propTypes = {
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.shape({
+      records: PropTypes.array,
+      sslInfo: PropTypes.shape({
+        daysRemaining: PropTypes.number,
+        valid: PropTypes.bool,
+        validFor: PropTypes.array,
+        validFrom: PropTypes.string,
+        validTo: PropTypes.string,
+      }),
+    }),
+  ]),
 };
