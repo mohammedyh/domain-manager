@@ -54,7 +54,7 @@ function App() {
         <Title>Dashboard</Title>
         <div className="flex items-center">
           <AddDomainModal
-            className="mr-10"
+            className="mr-10 flex"
             buttonText="Add Domain"
             showModal={showModal}
             setShowModal={setShowModal}
