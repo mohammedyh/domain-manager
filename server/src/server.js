@@ -57,7 +57,9 @@ app.get("/api/domains", async (req, res) => {
 });
 
 app.post("/api/domains/add", async (req, res) => {
-  const { domainName, userId } = req.body;
+  const { domainName } = req.body;
+  const { userId } = req.auth;
+
   if (!domainName) {
     return res.status(400).json({ message: "Domain name is missing" });
   }

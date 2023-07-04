@@ -18,7 +18,6 @@ export default function AddDomainModal({
   const modalInputRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { user } = useUser();
   const { getToken } = useAuth();
 
   const onKeyDown = useCallback(
@@ -46,10 +45,7 @@ export default function AddDomainModal({
     try {
       const formData = new FormData(event.target);
       const domainName = await domainSchema.validate(formData.get("domain"));
-      const data = {
-        domainName,
-        userId: user.id,
-      };
+      const data = { domainName };
 
       const addDomainRequest = await fetch("/api/domains/add", {
         method: "POST",
