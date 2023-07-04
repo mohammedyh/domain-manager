@@ -25,7 +25,15 @@ export default function AddDomainModal({
       const existingOpenModal = document.querySelector(
         '[data-headlessui-state="open"]'
       );
-      if (event.key !== "a" || showModal || existingOpenModal) return;
+      const openClerkModal = document.querySelector(".cl-modalBackdrop");
+      if (
+        event.key !== "a" ||
+        showModal ||
+        existingOpenModal ||
+        openClerkModal
+      ) {
+        return;
+      }
 
       event.preventDefault();
       setShowModal(true);
