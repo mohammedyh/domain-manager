@@ -1,4 +1,4 @@
-import { useAuth, useUser } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Flex, TextInput } from "@tremor/react";
 import { X } from "lucide-react";
