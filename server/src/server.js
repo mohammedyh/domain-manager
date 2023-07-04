@@ -64,7 +64,7 @@ app.post("/api/domains/add", async (req, res) => {
     return res.status(400).json({ message: "Domain name is missing" });
   }
 
-  if (await prisma.domain.findFirst({ where: { domainName } })) {
+  if (await prisma.domain.findFirst({ where: { user: userId, domainName } })) {
     return res.status(409).json({ message: "Domain has already been added" });
   }
 
