@@ -210,13 +210,16 @@ DomainInfoTabs.propTypes = {
     PropTypes.array,
     PropTypes.shape({
       records: PropTypes.array,
-      sslInfo: PropTypes.shape({
-        daysRemaining: PropTypes.number,
-        valid: PropTypes.bool,
-        validFor: PropTypes.array,
-        validFrom: PropTypes.string,
-        validTo: PropTypes.string,
-      }),
+      sslInfo: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.shape({
+          daysRemaining: PropTypes.number,
+          valid: PropTypes.bool,
+          validFor: PropTypes.array,
+          validFrom: PropTypes.string,
+          validTo: PropTypes.string,
+        }),
+      ]),
     }),
   ]),
 };
