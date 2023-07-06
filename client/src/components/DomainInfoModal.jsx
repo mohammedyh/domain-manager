@@ -13,30 +13,31 @@ import dayjs from "dayjs";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
+import useSWR from "swr";
 import Button from "./Button";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function DomainInfoModal({ buttonText, domainName }) {
   const { getToken } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [domainDetails, setDomainDetails] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  async function handleClick() {
-    setIsOpen(true);
-    setIsLoading(true);
-
-    const domainDetailsRequest = await fetch(`/api/domains/${domainName}`, {
+  const [shouldFetch, setShouldFetch] = useState(false);
+  const fetcher = async (url) =>
+    fetch(url, {
       headers: { Authorization: `Bearer ${await getToken()}` },
-    });
-    const domainRecords = await domainDetailsRequest.json();
-    setDomainDetails(domainRecords);
-    setIsLoading(false);
+    }).then((res) => res.json());
+  const { data } = useSWR(
+    shouldFetch ? `/api/domains/${domainName}` : null,
+    fetcher
+  );
+
+  function handleClick() {
+    setShouldFetch(true);
+    setIsOpen(true);
   }
 
   return (
     <>
-      <Button className="px-3 text-xs" onClick={() => handleClick()}>
+      <Button className="px-3 text-xs" onClick={handleClick}>
         {buttonText}
       </Button>
 
@@ -70,7 +71,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
-                  {isLoading ? (
+                  {!data ? (
                     <LoadingSkeleton />
                   ) : (
                     <>
@@ -79,7 +80,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                           as="h3"
                           className="text-lg font-medium leading-6 text-gray-900"
                         >
-                          Domain: {domainDetails.domain}
+                          Domain: {data?.domain}
                         </Dialog.Title>
 
                         <button onClick={() => setIsOpen(false)}>
@@ -89,10 +90,10 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
                           Here are the DNS records and SSL information for{" "}
-                          {domainDetails.domain}
+                          {data?.domain}
                         </p>
                       </div>
-                      <DomainInfoTabs data={domainDetails} />
+                      <DomainInfoTabs data={data} />
                       <div className="mt-4">
                         <Button onClick={() => setIsOpen(false)}>Close</Button>
                       </div>
@@ -114,7 +115,6 @@ DomainInfoModal.propTypes = {
 };
 
 export function DomainInfoTabs({ data }) {
-  console.log(data);
   return (
     <Tab.Group as="div" className="mt-6">
       <Tab.List className="space-x-5 border-b border-gray-200">
@@ -149,7 +149,7 @@ export function DomainInfoTabs({ data }) {
           </Table>
         </Tab.Panel>
         <Tab.Panel>
-          {!data.sslInfo.validFrom || !data.sslInfo.validTo ? (
+          {!data?.sslInfo.validFrom || !data?.sslInfo.validTo ? (
             <div className="my-6 flex flex-col justify-center text-center items-center">
               <img
                 src="https://illustrations.popsy.co/violet/falling.svg"
