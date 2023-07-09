@@ -46,7 +46,7 @@ function App() {
     <main className="p-8">
       <Header showModal={showModal} setShowModal={setShowModal} />
 
-      <Flex className="gap-6 mt-10">
+      <Flex className="gap-6 mt-10 flex-col md:flex-row">
         <Card decoration="top" decorationColor="indigo">
           <Flex justifyContent="start" className="space-x-4">
             <Icon icon={Box} variant="light" size="xl" color="indigo" />

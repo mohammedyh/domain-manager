@@ -9,7 +9,7 @@ export default function Header({ showModal, setShowModal }) {
       <Title>Dashboard</Title>
       <div className="flex items-center">
         <AddDomainModal
-          className="mr-10 flex"
+          className="mr-7 sm:mr-10 flex items-center"
           buttonText="Add Domain"
           showModal={showModal}
           setShowModal={setShowModal}
