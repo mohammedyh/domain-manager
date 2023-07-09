@@ -53,7 +53,6 @@ export default function AddDomainModal({
     try {
       const formData = new FormData(event.target);
       const domainName = await domainSchema.validate(formData.get("domain"));
-      const data = { domainName };
 
       const addDomainRequest = await fetch("/api/domains/add", {
         method: "POST",
@@ -61,7 +60,7 @@ export default function AddDomainModal({
           "Content-Type": "application/json",
           Authorization: `Bearer ${await getToken()}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ domainName }),
       });
       const { message } = await addDomainRequest.json();
 
@@ -78,8 +77,8 @@ export default function AddDomainModal({
       setIsSubmitting(false);
       setError("");
     } catch (error) {
-      setError(error.message);
       setIsSubmitting(false);
+      setError(error.message);
     }
   }
 
