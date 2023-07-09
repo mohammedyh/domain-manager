@@ -1,4 +1,4 @@
-import { UserButton, useAuth } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import {
   Badge,
   Card,
@@ -12,16 +12,15 @@ import {
   TableHeaderCell,
   TableRow,
   Text,
-  Title,
 } from "@tremor/react";
 import dayjs from "dayjs";
 import { Box, Clock4, ShieldAlert, Trash } from "lucide-react";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import useSWR, { mutate } from "swr";
-import AddDomainModal from "./components/AddDomainModal";
 import DomainInfoModal from "./components/DomainInfoModal";
 import ErrorScreen from "./components/ErrorScreen";
+import Header from "./components/Header";
 import LoadingSkeleton from "./components/LoadingSkeleton";
 
 function App() {
@@ -49,19 +48,7 @@ function App() {
 
   return (
     <main className="p-8">
-      <Toaster />
-      <Flex justifyContent="between">
-        <Title>Dashboard</Title>
-        <div className="flex items-center">
-          <AddDomainModal
-            className="mr-10 flex"
-            buttonText="Add Domain"
-            showModal={showModal}
-            setShowModal={setShowModal}
-          />
-          <UserButton afterSignOutUrl="/signin" />
-        </div>
-      </Flex>
+      <Header showModal={showModal} setShowModal={setShowModal} />
 
       <Flex className="gap-6 mt-10">
         <Card decoration="top" decorationColor="indigo">
@@ -189,6 +176,7 @@ function App() {
           </Table>
         )}
       </Card>
+      <Toaster />
     </main>
   );
 }
