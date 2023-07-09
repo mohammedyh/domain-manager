@@ -27,7 +27,8 @@ export default function DomainInfoModal({ buttonText, domainName }) {
     }).then((res) => res.json());
   const { data } = useSWR(
     shouldFetch ? `/api/domains/${domainName}` : null,
-    fetcher
+    fetcher,
+    { revalidateOnFocus: false }
   );
 
   function handleClick() {

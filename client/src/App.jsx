@@ -30,7 +30,9 @@ function App() {
       headers: { Authorization: `Bearer ${await getToken()}` },
     }).then((res) => res.json());
 
-  const { data, error, isLoading } = useSWR("/api/domains", fetcher);
+  const { data, error, isLoading } = useSWR("/api/domains", fetcher, {
+    revalidateOnFocus: false,
+  });
   const [showModal, setShowModal] = useState(false);
 
   async function deleteDomainById(id) {
