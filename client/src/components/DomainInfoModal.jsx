@@ -1,4 +1,3 @@
-import { useAuth } from "@clerk/clerk-react";
 import { Dialog, Tab, Transition } from "@headlessui/react";
 import {
   Flex,
@@ -13,23 +12,14 @@ import dayjs from "dayjs";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
-import useSWR from "swr";
+import { useDomain } from "../hooks/useDomain";
 import Button from "./Button";
 import LoadingSkeleton from "./LoadingSkeleton";
 
 export default function DomainInfoModal({ buttonText, domainName }) {
-  const { getToken } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [shouldFetch, setShouldFetch] = useState(false);
-  const fetcher = async (url) =>
-    fetch(url, {
-      headers: { Authorization: `Bearer ${await getToken()}` },
-    }).then((res) => res.json());
-  const { data } = useSWR(
-    shouldFetch ? `/api/domains/${domainName}` : null,
-    fetcher,
-    { revalidateOnFocus: false }
-  );
+  const { data } = useDomain(shouldFetch, domainName);
 
   function handleClick() {
     setShouldFetch(true);
@@ -153,7 +143,7 @@ export function DomainInfoTabs({ data }) {
           {!data?.sslInfo.validFrom || !data?.sslInfo.validTo ? (
             <div className="my-6 flex flex-col justify-center text-center items-center">
               <img
-                src="https://illustrations.popsy.co/violet/falling.svg"
+                src="/person-falling.svg"
                 className="pointer-events-none blur-0 my-2"
                 alt="No SSL information available"
                 width="250"

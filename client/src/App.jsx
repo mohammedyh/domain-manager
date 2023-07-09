@@ -17,22 +17,16 @@ import dayjs from "dayjs";
 import { Box, Clock4, ShieldAlert, Trash } from "lucide-react";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 import DomainInfoModal from "./components/DomainInfoModal";
 import ErrorScreen from "./components/ErrorScreen";
 import Header from "./components/Header";
 import LoadingSkeleton from "./components/LoadingSkeleton";
+import { useFetchAllDomains } from "./hooks/useFetchAllDomains";
 
 function App() {
   const { getToken } = useAuth();
-  const fetcher = async (url) =>
-    fetch(url, {
-      headers: { Authorization: `Bearer ${await getToken()}` },
-    }).then((res) => res.json());
-
-  const { data, error, isLoading } = useSWR("/api/domains", fetcher, {
-    revalidateOnFocus: false,
-  });
+  const { data, error, isLoading } = useFetchAllDomains();
   const [showModal, setShowModal] = useState(false);
 
   async function deleteDomainById(id) {
