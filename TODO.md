@@ -1,6 +1,3 @@
-Client:
-- Organise functions that query the api a separate file like api.js for example
-
 Server:
 - Store DNS records / SSL information in database
 - Have DNS records / SSL information re-fetched on a cron (every 6 or 24 hours)
