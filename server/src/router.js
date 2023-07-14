@@ -49,10 +49,14 @@ router.post("/domains/add", async (req, res) => {
 
   try {
     const domainWhoisFields = await getWhoisData(domainName);
-    if (!domainWhoisFields.createdDate || !domainWhoisFields.registrar) {
+    if (
+      !domainWhoisFields.createdDate ||
+      !domainWhoisFields.registrar ||
+      !domainWhoisFields.expiryDate
+    ) {
       return res
         .status(404)
-        .json({ message: "Failed to fetch domain information" });
+        .json({ message: "Failed to fetch complete domain information" });
     }
 
     const domain = await prisma.domain.create({
