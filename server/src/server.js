@@ -23,3 +23,12 @@ app.use((err, req, res) => {
 app.listen(PORT, () =>
   console.log(`Server started at http://localhost:${PORT}`)
 );
+
+process.on("SIGTERM", () => {
+  console.info("SIGTERM signal received.");
+  console.log("Closing server...");
+  server.close(() => {
+    console.log("Server closed");
+    process.exit(0);
+  });
+});
