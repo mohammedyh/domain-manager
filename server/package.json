@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "node src/server.js",
-    "dev:watch": "nodemon src/server.js"
+    "dev:watch": "node src/server.js --watch"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +21,6 @@
   "devDependencies": {
     "eslint": "^8.45.0",
     "eslint-plugin-security": "^1.7.1",
-    "nodemon": "^3.0.1",
     "prisma": "^5.0.0"
   }
 }
