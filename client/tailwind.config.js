@@ -101,7 +101,7 @@ export default {
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
       fontFamily: {
-        sans: ["Inter Variable", ...defaultTheme.fontFamily.sans],
+        sans: ["Geist Sans", ...defaultTheme.fontFamily.sans],
       },
     },
   },

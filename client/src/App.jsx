@@ -62,9 +62,9 @@ function App() {
             <Globe className="h-4 w-4 stroke-slate-500" />
           </CardHeader>
           <CardContent>
-            <div className="mt-2 text-2xl font-bold">45</div>
+            <div className="mt-2 text-2xl font-bold">{data.domains.length}</div>
             <p className="mt-1 text-xs text-slate-600">
-              +20.1% from last month
+              +100% from last month
             </p>
           </CardContent>
         </NewCard>

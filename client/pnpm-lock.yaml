@@ -8,9 +8,9 @@ dependencies:
   '@clerk/clerk-react':
     specifier: ^4.22.0
     version: 4.22.0(react@18.2.0)
-  '@fontsource-variable/inter':
-    specifier: ^5.0.5
-    version: 5.0.5
+  '@fontsource/geist-sans':
+    specifier: ^5.0.1
+    version: 5.0.1
   '@headlessui/react':
     specifier: ^1.7.15
     version: 1.7.15(react-dom@18.2.0)(react@18.2.0)
@@ -407,8 +407,8 @@ packages:
       tabbable: 6.2.0
     dev: false
 
-  /@fontsource-variable/inter@5.0.5:
-    resolution: {integrity: sha512-hmj/jffr+1tabEPmvm+/b89MtbO6hd5PVbQ6HoMGTO7RMF5eD2C9UcprCgZTOF3OWh5uC21C9HZGN0O9wxe+UQ==}
+  /@fontsource/geist-sans@5.0.1:
+    resolution: {integrity: sha512-Q/GGewhqc6WTtqbOQWaHCar/BZY3H6Nu0J65BuWYOCXUhc/iEhRP9n+7V2KZ3X8+/ZNMCfFzxzrUZrQYB/lnNw==}
     dev: false
 
   /@headlessui/react@1.7.15(react-dom@18.2.0)(react@18.2.0):
