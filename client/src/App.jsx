@@ -23,6 +23,15 @@ import ErrorScreen from "./components/ErrorScreen";
 import Header from "./components/Header";
 import LoadingSkeleton from "./components/LoadingSkeleton";
 import { useFetchAllDomains } from "./hooks/useFetchAllDomains";
+import {
+  Card as NewCard,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Lock } from "lucide-react";
+import { Clock7 } from "lucide-react";
+import { Globe } from "lucide-react";
 
 function App() {
   const { getToken } = useAuth();
@@ -46,37 +55,48 @@ function App() {
     <main className="p-8">
       <Header showModal={showModal} setShowModal={setShowModal} />
 
-      <Flex className="gap-6 mt-10 flex-col md:flex-row">
-        <Card decoration="top" decorationColor="indigo">
-          <Flex justifyContent="start" className="space-x-4">
-            <Icon icon={Box} variant="light" size="xl" color="indigo" />
-            <div>
-              <Text>Total Domains</Text>
-              <Metric className="mt-2">{data.domains.length}</Metric>
-            </div>
-          </Flex>
-        </Card>
+      <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <NewCard>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-base font-medium">Total Domains</CardTitle>
+            <Globe className="h-4 w-4 stroke-slate-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="mt-2 text-2xl font-bold">45</div>
+            <p className="mt-1 text-xs text-slate-600">
+              +20.1% from last month
+            </p>
+          </CardContent>
+        </NewCard>
 
-        <Card decoration="top" decorationColor="indigo">
-          <Flex justifyContent="start" className="space-x-4">
-            <Icon icon={Clock4} variant="light" size="xl" color="indigo" />
-            <div>
-              <Text>Domains Expiring This Month</Text>
-              <Metric className="mt-2">0</Metric>
-            </div>
-          </Flex>
-        </Card>
+        <NewCard>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-base font-medium">
+              Expiring this Month
+            </CardTitle>
+            <Clock7 className="h-4 w-4 stroke-slate-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="mt-2 text-2xl font-bold">23</div>
+            <p className="mt-1 text-xs text-slate-600">
+              +180.1% from last month
+            </p>
+          </CardContent>
+        </NewCard>
 
-        <Card decoration="top" decorationColor="indigo">
-          <Flex justifyContent="start" className="space-x-4">
-            <Icon icon={ShieldAlert} variant="light" size="xl" color="indigo" />
-            <div>
-              <Text>Domains SSL Expiring This Month</Text>
-              <Metric className="mt-2">0</Metric>
-            </div>
-          </Flex>
-        </Card>
-      </Flex>
+        <NewCard>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-base font-medium">
+              SSLs Expiring this Month
+            </CardTitle>
+            <Lock className="h-4 w-4 stroke-slate-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="mt-2 text-2xl font-bold">12</div>
+            <p className="mt-1 text-xs text-slate-600">+19% from last month</p>
+          </CardContent>
+        </NewCard>
+      </div>
 
       <Card className="h-full mt-6">
         {!data.domains.length ? (
