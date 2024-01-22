@@ -1,13 +1,12 @@
 import { Dialog, Tab, Transition } from "@headlessui/react";
 import {
-  Flex,
   Table,
   TableBody,
   TableCell,
+  TableHeader,
   TableHead,
-  TableHeaderCell,
   TableRow,
-} from "@tremor/react";
+} from "@/components/ui/table";
 import dayjs from "dayjs";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
@@ -66,7 +65,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                     <LoadingSkeleton />
                   ) : (
                     <>
-                      <Flex>
+                      <div className="flex justify-between items-center">
                         <Dialog.Title
                           as="h3"
                           className="text-lg font-medium leading-6 text-gray-900"
@@ -77,7 +76,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                         <button onClick={() => setIsOpen(false)}>
                           <X className="stroke-slate-500 hover:stroke-slate-800 transition-colors" />
                         </button>
-                      </Flex>
+                      </div>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
                           Here are the DNS records and SSL information for{" "}
@@ -119,13 +118,13 @@ export function DomainInfoTabs({ data }) {
       <Tab.Panels>
         <Tab.Panel>
           <Table className="mt-5">
-            <TableHead>
+            <TableHeader>
               <TableRow>
-                <TableHeaderCell>Type</TableHeaderCell>
-                <TableHeaderCell>Value</TableHeaderCell>
-                <TableHeaderCell>TTL</TableHeaderCell>
+                <TableHead>Type</TableHead>
+                <TableHead>Value</TableHead>
+                <TableHead>TTL</TableHead>
               </TableRow>
-            </TableHead>
+            </TableHeader>
             <TableBody>
               {data?.records?.map((record, index) => (
                 <TableRow key={index}>
@@ -160,21 +159,19 @@ export function DomainInfoTabs({ data }) {
             </div>
           ) : (
             <Table className="mt-5">
-              <TableHead>
+              <TableHeader>
                 <TableRow>
-                  <TableHeaderCell>Days Remaining</TableHeaderCell>
-                  <TableHeaderCell>Valid</TableHeaderCell>
-                  <TableHeaderCell>Valid From</TableHeaderCell>
-                  <TableHeaderCell>Valid To</TableHeaderCell>
-                  <TableHeaderCell>Valid For</TableHeaderCell>
+                  <TableHead>Days Remaining</TableHead>
+                  <TableHead>Valid</TableHead>
+                  <TableHead>Valid From</TableHead>
+                  <TableHead>Valid To</TableHead>
+                  <TableHead>Valid For</TableHead>
                 </TableRow>
-              </TableHead>
+              </TableHeader>
               <TableBody>
                 <TableRow>
                   <TableCell>{data?.sslInfo?.daysRemaining}</TableCell>
-                  <TableCell className="whitespace-normal max-w-5xl">
-                    {data?.sslInfo?.valid ? "Yes" : "No"}
-                  </TableCell>
+                  <TableCell>{data?.sslInfo?.valid ? "Yes" : "No"}</TableCell>
                   <TableCell>
                     {dayjs(data?.sslInfo?.validFrom).format("YYYY-MM-DD")}
                   </TableCell>
