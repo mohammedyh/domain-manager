@@ -1,12 +1,11 @@
 import { UserButton } from "@clerk/clerk-react";
-import { Flex, Title } from "@tremor/react";
 import PropTypes from "prop-types";
 import AddDomainModal from "./AddDomainModal";
 
 export default function Header({ showModal, setShowModal }) {
   return (
-    <Flex justifyContent="between">
-      <Title>Dashboard</Title>
+    <div className="flex justify-between">
+      <h1 className="font-medium text-xl">Dashboard</h1>
       <div className="flex items-center">
         <AddDomainModal
           className="mr-7 sm:mr-10 flex items-center text-xs sm:text-sm"
@@ -16,7 +15,7 @@ export default function Header({ showModal, setShowModal }) {
         />
         <UserButton afterSignOutUrl="/signin" />
       </div>
-    </Flex>
+    </div>
   );
 }
 

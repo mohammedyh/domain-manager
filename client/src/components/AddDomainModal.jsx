@@ -1,13 +1,13 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { domainSchema } from "@/lib/schema";
 import { useAuth } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Flex, TextInput } from "@tremor/react";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
-import { domainSchema } from "../lib/schema";
-import Button from "./Button";
 
 export default function AddDomainModal({
   buttonText,
@@ -87,7 +87,7 @@ export default function AddDomainModal({
       <div>
         <Button className={className} onClick={() => setShowModal(true)}>
           {buttonText}
-          <kbd className="rounded ml-3 bg-indigo-400/60 px-2 py-0.5 text-xs font-light text-indigo-100">
+          <kbd className="rounded ml-3 bg-slate-500/50 px-2 py-0.5 text-xs font-light text-indigo-100">
             A
           </kbd>
         </Button>
@@ -124,7 +124,7 @@ export default function AddDomainModal({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
-                  <Flex>
+                  <div className="flex justify-between">
                     <Dialog.Title
                       as="h2"
                       className="text-lg font-semibold leading-6 text-gray-900"
@@ -135,21 +135,22 @@ export default function AddDomainModal({
                     <button onClick={() => setShowModal(false)}>
                       <X className="stroke-slate-500 hover:stroke-slate-800 transition-colors" />
                     </button>
-                  </Flex>
+                  </div>
 
                   <form onSubmit={handleFormSubmit}>
                     <div className="mt-4">
                       <label className="text-sm text-slate-600">
                         Domain Name
-                        <TextInput
-                          className="mt-1 ring-indigo-500 focus-within:ring-1"
+                        <Input
+                          className="mt-1"
                           placeholder="e.g. mohammedcodes.dev"
                           name="domain"
-                          error={!!error}
-                          errorMessage={error}
                           ref={modalInputRef}
                         />
                       </label>
+                      {!!error && (
+                        <p className="text-sm text-red-500 mt-2">{error}</p>
+                      )}
                     </div>
 
                     <div className="mt-4">
