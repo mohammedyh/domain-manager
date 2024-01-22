@@ -8,7 +8,7 @@ DomainHive effortlessly helps you manage your domains. You can view when your do
 
 **Client:** React, React Router, SWR, Day.js
 
-**Styling:** Tremor, HeadlessUI, TailwindCSS
+**Styling:** shadcn/ui, HeadlessUI, Tailwind
 
 **Server:** Node, Express, Whoiser
 
