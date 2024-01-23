@@ -108,10 +108,10 @@ export function DomainInfoTabs({ data }) {
   return (
     <Tab.Group as="div" className="mt-6">
       <Tab.List className="space-x-5 border-b border-gray-200">
-        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
+        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
           DNS Records
         </Tab>
-        <Tab className="ui-selected:border-indigo-500 ui-selected:text-indigo-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
+        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
           SSL Info
         </Tab>
       </Tab.List>
