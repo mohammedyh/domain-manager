@@ -1,37 +1,25 @@
-import { useAuth } from "@clerk/clerk-react";
+import DomainInfoModal from "@/components/DomainInfoModal";
+import ErrorScreen from "@/components/ErrorScreen";
+import Header from "@/components/Header";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Badge,
-  Card,
-  Flex,
-  Icon,
-  Metric,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TableHeaderCell,
+  TableHeader,
   TableRow,
-  Text,
-} from "@tremor/react";
+} from "@/components/ui/table";
+import { useFetchAllDomains } from "@/hooks/useFetchAllDomains";
+import { useAuth } from "@clerk/clerk-react";
 import dayjs from "dayjs";
-import { Box, Clock4, ShieldAlert, Trash } from "lucide-react";
+import { Clock7, Globe, Lock, Trash } from "lucide-react";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import { mutate } from "swr";
-import DomainInfoModal from "./components/DomainInfoModal";
-import ErrorScreen from "./components/ErrorScreen";
-import Header from "./components/Header";
-import LoadingSkeleton from "./components/LoadingSkeleton";
-import { useFetchAllDomains } from "./hooks/useFetchAllDomains";
-import {
-  Card as NewCard,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Lock } from "lucide-react";
-import { Clock7 } from "lucide-react";
-import { Globe } from "lucide-react";
 
 function App() {
   const { getToken } = useAuth();
@@ -56,20 +44,20 @@ function App() {
       <Header showModal={showModal} setShowModal={setShowModal} />
 
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <NewCard>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base font-medium">Total Domains</CardTitle>
+            <CardTitle className="text-base font-medium">
+              Total Domains
+            </CardTitle>
             <Globe className="h-4 w-4 stroke-slate-500" />
           </CardHeader>
           <CardContent>
             <div className="mt-2 text-2xl font-bold">{data.domains.length}</div>
-            <p className="mt-1 text-xs text-slate-600">
-              +100% from last month
-            </p>
+            <p className="mt-1 text-xs text-slate-600">+100% from last month</p>
           </CardContent>
-        </NewCard>
+        </Card>
 
-        <NewCard>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-base font-medium">
               Expiring this Month
@@ -82,9 +70,9 @@ function App() {
               +180.1% from last month
             </p>
           </CardContent>
-        </NewCard>
+        </Card>
 
-        <NewCard>
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-base font-medium">
               SSLs Expiring this Month
@@ -95,7 +83,7 @@ function App() {
             <div className="mt-2 text-2xl font-bold">12</div>
             <p className="mt-1 text-xs text-slate-600">+19% from last month</p>
           </CardContent>
-        </NewCard>
+        </Card>
       </div>
 
       <Card className="h-full mt-6">
@@ -121,19 +109,17 @@ function App() {
           </div>
         ) : (
           <Table>
-            <TableHead>
+            <TableHeader>
               <TableRow>
-                <TableHeaderCell>Domain</TableHeaderCell>
-                <TableHeaderCell>Expires On</TableHeaderCell>
-                <TableHeaderCell>Registered On</TableHeaderCell>
-                <TableHeaderCell>Updated On</TableHeaderCell>
-                <TableHeaderCell>Status</TableHeaderCell>
-                <TableHeaderCell>Registrar</TableHeaderCell>
-                <TableHeaderCell className="text-right">
-                  Actions
-                </TableHeaderCell>
+                <TableHead>Domain</TableHead>
+                <TableHead>Expires On</TableHead>
+                <TableHead>Registered On</TableHead>
+                <TableHead>Updated On</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Registrar</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
-            </TableHead>
+            </TableHeader>
 
             <TableBody>
               {data.domains.map(
@@ -158,32 +144,32 @@ function App() {
                     </TableCell>
                     <TableCell>
                       {dayjs(expiryDate).isBefore() ? (
-                        <Badge color="red" size="xs">
+                        <Badge className="bg-red-200 text-red-800 hover:bg-red-200 hover:text-red-800">
                           <span className="font-medium">Expired</span>
                         </Badge>
                       ) : (
-                        <Badge color="green" size="xs">
+                        <Badge className="bg-green-200 text-green-800 hover:bg-green-200 hover:text-green-800">
                           <span className="font-medium">Active</span>
                         </Badge>
                       )}
                     </TableCell>
                     <TableCell>{registrar}</TableCell>
                     <TableCell>
-                      <Flex justifyContent="end" className="space-x-2">
+                      <div className="flex justify-end items-center space-x-2">
                         <DomainInfoModal
-                          buttonText="View Domain Info"
+                          buttonText="View Info"
                           domainName={domainName}
                         />
 
-                        <button onClick={() => deleteDomainById(id)}>
-                          <Icon
-                            icon={Trash}
-                            variant="light"
-                            size="md"
-                            color="red"
-                          />
-                        </button>
-                      </Flex>
+                        <Button
+                          className="bg-red-100 border-none hover:bg-red-100"
+                          variant="outline"
+                          size="icon"
+                          onClick={() => deleteDomainById(id)}
+                        >
+                          <Trash className="h-4 w-4 stroke-red-600" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 )
