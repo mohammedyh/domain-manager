@@ -11,7 +11,6 @@
     "@fontsource/geist-sans": "^5.0.1",
     "@headlessui/react": "^1.7.15",
     "@radix-ui/react-slot": "^1.0.2",
-    "@tremor/react": "^3.4.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dayjs": "^1.11.9",
