@@ -4,7 +4,7 @@
 
 DomainHive effortlessly helps you manage your domains. You can view when your domains were registered, when they’ll expire, current DNS records, the domain registrar and more.
 
-# Old Design
+## Old Design
 
 ![Screenshot of DomainHive Old Design](https://raw.githubusercontent.com/mohammedyh/domain-manager/master/domainhive-old-design.png)
 
