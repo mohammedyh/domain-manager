@@ -77,7 +77,7 @@ router.post("/domains/add", async (req, res) => {
 
 router.get("/domains/:domainName", async (req, res) => {
   const { domainName } = req.params;
-  const records = await dnsRecords.getAllRecords(domainName);
+  const records = await dnsRecords.getAllDnsRecords(domainName);
   const filteredRecords = Object.values(records).flatMap((recordType) =>
     recordType.filter((recordObj) => recordObj.name === domainName)
   );
