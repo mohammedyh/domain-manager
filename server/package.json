@@ -9,14 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@clerk/clerk-sdk-node": "^4.13.7",
+    "@clerk/clerk-sdk-node": "^4.13.9",
     "@layered/dns-records": "2.0.0-beta.8",
     "@prisma/client": "5.9.1",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
     "ssl-checker": "^2.0.8",
-    "whoiser": "^1.17.1"
+    "whoiser": "^1.17.2"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
