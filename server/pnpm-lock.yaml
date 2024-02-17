@@ -24,8 +24,8 @@ dependencies:
     specifier: ^1.10.0
     version: 1.10.0
   ssl-checker:
-    specifier: ^2.0.8
-    version: 2.0.8
+    specifier: ^2.0.9
+    version: 2.0.9
   whoiser:
     specifier: ^1.17.2
     version: 1.17.2
@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^8.56.0
     version: 8.56.0
   eslint-plugin-security:
-    specifier: ^2.1.0
-    version: 2.1.0
+    specifier: ^2.1.1
+    version: 2.1.1
   prisma:
     specifier: ^5.9.1
     version: 5.9.1
@@ -659,8 +659,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /eslint-plugin-security@2.1.0:
-    resolution: {integrity: sha512-ywxclP954bf8d3gr6KOQ/AFc+PRvWuhOxtPOEtiHmVYiZr/mcgQtmSJq6+hTEXC5ylTjHnPPG+PEnzlDiWMXbQ==}
+  /eslint-plugin-security@2.1.1:
+    resolution: {integrity: sha512-7cspIGj7WTfR3EhaILzAPcfCo5R9FbeWvbgsPYWivSurTBKW88VQxtP3c4aWMG9Hz/GfJlJVdXEJ3c8LqS+u2w==}
     dependencies:
       safe-regex: 2.1.1
     dev: true
@@ -1495,8 +1495,8 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  /ssl-checker@2.0.8:
-    resolution: {integrity: sha512-pIDGxablZowKR/elbm72Wk7T3lEdrcAKT4ltPsdQrpm7N6EIIvuFQpIcMNG+A/wmiymcRwFDzTd83bW6Yy5LKQ==}
+  /ssl-checker@2.0.9:
+    resolution: {integrity: sha512-aKIJBxTqWOPaeCrbuOGTyGtolJH+Yrbatldgj/wPADkoVtZ+7ySHQ///Y4H590MeTWkr1AE0T7iP5YXX/ZXpEw==}
     dev: false
 
   /statuses@2.0.1:
