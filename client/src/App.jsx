@@ -3,7 +3,6 @@ import ErrorScreen from "@/components/ErrorScreen";
 import Header from "@/components/Header";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -16,10 +15,11 @@ import {
 import { useFetchAllDomains } from "@/hooks/useFetchAllDomains";
 import { useAuth } from "@clerk/clerk-react";
 import dayjs from "dayjs";
-import { Clock7, Globe, Lock, Trash } from "lucide-react";
+import { Clock7, Globe, Lock } from "lucide-react";
 import { useState } from "react";
 import { Toaster, toast } from "sonner";
 import { mutate } from "swr";
+import DomainDeleteModal from "./components/DeleteDomainModal";
 
 function App() {
   const { getToken } = useAuth();
@@ -161,14 +161,11 @@ function App() {
                           domainName={domainName}
                         />
 
-                        <Button
-                          className="bg-red-100 border-none hover:bg-red-100"
-                          variant="outline"
-                          size="icon"
-                          onClick={() => deleteDomainById(id)}
-                        >
-                          <Trash className="h-4 w-4 stroke-red-600" />
-                        </Button>
+                        <DomainDeleteModal
+                          domainName={domainName}
+                          domainId={id}
+                          deleteDomainById={deleteDomainById}
+                        />
                       </div>
                     </TableCell>
                   </TableRow>

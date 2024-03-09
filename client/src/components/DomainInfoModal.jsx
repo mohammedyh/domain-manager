@@ -1,12 +1,12 @@
-import { Dialog, Tab, Transition } from "@headlessui/react";
 import {
   Table,
   TableBody,
   TableCell,
-  TableHeader,
   TableHead,
+  TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Dialog, Tab, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
 import { X } from "lucide-react";
 import PropTypes from "prop-types";
