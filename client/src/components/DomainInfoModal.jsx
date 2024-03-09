@@ -105,6 +105,7 @@ DomainInfoModal.propTypes = {
 };
 
 export function DomainInfoTabs({ data }) {
+  const sortedDomainData = data.records.sort((a, b) => a.type > b.type);
   return (
     <Tab.Group as="div" className="mt-6">
       <Tab.List className="space-x-5 border-b border-gray-200">
@@ -121,16 +122,18 @@ export function DomainInfoTabs({ data }) {
             <TableHeader>
               <TableRow>
                 <TableHead>Type</TableHead>
+                <TableHead>Name</TableHead>
                 <TableHead>Value</TableHead>
                 <TableHead>TTL</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data?.records?.map((record, index) => (
+              {sortedDomainData?.map((record, index) => (
                 <TableRow key={index}>
                   <TableCell>{record.type}</TableCell>
+                  <TableCell>{record.name}</TableCell>
                   <TableCell className="whitespace-normal max-w-5xl">
-                    {record.value}
+                    {record.data}
                   </TableCell>
                   <TableCell>{record.ttl}</TableCell>
                 </TableRow>

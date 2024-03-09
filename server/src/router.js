@@ -1,4 +1,4 @@
-import dnsRecords from "@layered/dns-records";
+import { getAllDnsRecords } from "@layered/dns-records";
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import sslChecker from "ssl-checker";
@@ -9,7 +9,6 @@ const prisma = new PrismaClient();
 
 router.get("/domains", async (req, res) => {
   if (!req.auth.userId) {
-    console.log("no auth user id");
     return res.status(401).json({
       message: "Unauthorized",
       description:
@@ -77,10 +76,7 @@ router.post("/domains/add", async (req, res) => {
 
 router.get("/domains/:domainName", async (req, res) => {
   const { domainName } = req.params;
-  const records = await dnsRecords.getAllDnsRecords(domainName);
-  const filteredRecords = Object.values(records).flatMap((recordType) =>
-    recordType.filter((recordObj) => recordObj.name === domainName)
-  );
+  const records = await getAllDnsRecords(domainName);
   let sslInfo;
 
   try {
@@ -89,9 +85,7 @@ router.get("/domains/:domainName", async (req, res) => {
     sslInfo = `Unable to retrieve SSL information for ${domainName}`;
   }
 
-  return res
-    .status(200)
-    .json({ domain: domainName, records: filteredRecords, sslInfo });
+  return res.status(200).json({ domain: domainName, records, sslInfo });
 });
 
 router.delete("/domains/:id", async (req, res) => {
