@@ -1,9 +1,11 @@
 Server:
-- Store DNS records / SSL information in database
-- Have DNS records / SSL information re-fetched on a cron (every 6 or 24 hours)
-- Have a button to manually re-fetch DNS records / SSL information
-- Show confirmation modal when deleting domain
-- Indicate expiring domains and SSLs in table (maybe have an 'expiring' status)
+- [ ] Store DNS records / SSL information in database
+- [ ] Have DNS records / SSL information re-fetched at an interval (every 6 or 24 hours)
+- [ ] Have a button in the domain modal to manually re-fetch DNS records / SSL information
+- [ ] Show confirmation modal when deleting domain
+- [ ] Indicate expiring domains and SSLs in table (maybe have an 'expiring' status)
+- [x] Sort DNS records by their type
+- [ ] Show SSL certificate issuer
 
-Code Structure
-- Get familiar with specific guidelines, patterns, and standards, and incorporate into project
+Code Structure:
+- [ ] Look at ways to improve app structure, API design, client-side data fetching methods, caching etc.
