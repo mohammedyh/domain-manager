@@ -39,6 +39,10 @@ function App() {
   if (error) return <ErrorScreen />;
   if (isLoading) return <LoadingSkeleton type="dashboard" />;
 
+  const domainsExpiringThisMonth = data.domains.filter((domain) =>
+    dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month")
+  );
+
   return (
     <main className="p-8">
       <Header showModal={showModal} setShowModal={setShowModal} />
@@ -65,7 +69,9 @@ function App() {
             <Clock7 className="h-4 w-4 stroke-slate-500" />
           </CardHeader>
           <CardContent>
-            <div className="mt-2 text-2xl font-bold">23</div>
+            <div className="mt-2 text-2xl font-bold">
+              {domainsExpiringThisMonth.length}
+            </div>
             <p className="mt-1 text-xs text-slate-600">
               +180.1% from last month
             </p>
