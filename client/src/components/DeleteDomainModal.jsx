@@ -110,6 +110,5 @@ export default function DomainDeleteModal({ domainName, domainId }) {
 
 DomainDeleteModal.propTypes = {
   domainName: PropTypes.string.isRequired,
-  deleteDomainById: PropTypes.func.isRequired,
   domainId: PropTypes.number.isRequired,
 };
