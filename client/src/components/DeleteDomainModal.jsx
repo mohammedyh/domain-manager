@@ -3,13 +3,14 @@ import { useAuth } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Trash, X } from "lucide-react";
 import PropTypes from "prop-types";
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
 
 export default function DomainDeleteModal({ domainName, domainId }) {
   const { getToken } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const deleteButtonRef = useRef(null);
 
   async function deleteDomainById(id) {
     const deleteDomainRequest = await fetch(`/api/domains/${id}`, {
@@ -37,6 +38,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
           as="div"
           className="relative z-10"
           onClose={() => setIsOpen(false)}
+          initialFocus={deleteButtonRef}
         >
           <Transition.Child
             as={Fragment}
@@ -90,9 +92,10 @@ export default function DomainDeleteModal({ domainName, domainId }) {
                         Cancel
                       </Button>
                       <Button
-                        className="ml-3"
+                        className="ml-3 focus:ring-2 focus:ring-slate-950 focus:ring-offset-2"
                         variant="destructive"
                         onClick={() => deleteDomainById(domainId)}
+                        ref={deleteButtonRef}
                       >
                         Delete
                       </Button>
