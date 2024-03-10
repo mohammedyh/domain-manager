@@ -1,15 +1,25 @@
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Trash, X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
+import { toast } from "sonner";
+import { mutate } from "swr";
 
-export default function DomainDeleteModal({
-  domainName,
-  deleteDomainById,
-  domainId,
-}) {
+export default function DomainDeleteModal({ domainName, domainId }) {
+  const { getToken } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+
+  async function deleteDomainById(id) {
+    const deleteDomainRequest = await fetch(`/api/domains/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${await getToken()}` },
+    });
+    const { message } = await deleteDomainRequest.json();
+    toast.success(message);
+    mutate("/api/domains");
+  }
 
   return (
     <>

@@ -13,28 +13,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useFetchAllDomains } from "@/hooks/useFetchAllDomains";
-import { useAuth } from "@clerk/clerk-react";
 import dayjs from "dayjs";
 import { Clock7, Globe, Lock } from "lucide-react";
 import { useState } from "react";
-import { Toaster, toast } from "sonner";
-import { mutate } from "swr";
+import { Toaster } from "sonner";
 import DomainDeleteModal from "./components/DeleteDomainModal";
 
 function App() {
-  const { getToken } = useAuth();
   const { data, error, isLoading } = useFetchAllDomains();
   const [showModal, setShowModal] = useState(false);
-
-  async function deleteDomainById(id) {
-    const deleteDomainRequest = await fetch(`/api/domains/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${await getToken()}` },
-    });
-    const { message } = await deleteDomainRequest.json();
-    toast.success(message);
-    mutate("/api/domains");
-  }
 
   if (error) return <ErrorScreen />;
   if (isLoading) return <LoadingSkeleton type="dashboard" />;
@@ -170,7 +157,6 @@ function App() {
                         <DomainDeleteModal
                           domainName={domainName}
                           domainId={id}
-                          deleteDomainById={deleteDomainById}
                         />
                       </div>
                     </TableCell>
