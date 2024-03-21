@@ -18,7 +18,7 @@ app.use("/api", router);
 app.use((err, req, res) => {
   console.error(err.stack);
   return res
-    .send(500)
+    .status(500)
     .json({ message: "Internal server error", error: err.message });
 });
 
