@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { ClerkExpressWithAuth } from "@clerk/clerk-sdk-node";
 import express from "express";
+import helmet from "helmet";
 import morgan from "morgan";
 import router from "./router.js";
 
@@ -8,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(morgan("dev"));
+app.use(helmet());
 app.use(ClerkExpressWithAuth());
 app.use(express.json());
 
