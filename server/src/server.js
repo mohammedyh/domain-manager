@@ -27,8 +27,7 @@ const server = app.listen(PORT, () =>
 );
 
 process.on("SIGTERM", () => {
-  console.info("SIGTERM signal received.");
-  console.log("Closing server...");
+  console.info("SIGTERM signal received. Closing server");
   server.close(() => {
     console.log("Server closed");
     process.exit(0);

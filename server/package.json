@@ -3,7 +3,9 @@
   "type": "module",
   "scripts": {
     "dev": "node src/server.js",
-    "dev:watch": "node src/server.js --watch"
+    "dev:watch": "node src/server.js --watch",
+    "lint": "eslint \"**/*.js\"",
+    "lint:fix": "eslint \"**/*.js\" --fix"
   },
   "keywords": [],
   "author": "",
