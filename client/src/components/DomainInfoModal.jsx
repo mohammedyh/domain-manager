@@ -27,7 +27,10 @@ export default function DomainInfoModal({ buttonText, domainName }) {
 
   return (
     <>
-      <Button className="px-3 text-xs" onClick={handleClick}>
+      <Button
+        className="px-3 text-xs dark:bg-slate-50 dark:text-slate-900"
+        onClick={handleClick}
+      >
         {buttonText}
       </Button>
 
@@ -46,7 +49,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-black bg-opacity-25 dark:bg-opacity-50" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -60,7 +63,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all dark:bg-slate-900 dark:text-slate-100">
                   {!data ? (
                     <LoadingSkeleton />
                   ) : (
@@ -68,24 +71,24 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                       <div className="flex justify-between items-center">
                         <Dialog.Title
                           as="h3"
-                          className="text-lg font-medium leading-6 text-gray-900"
+                          className="text-lg font-medium leading-6 text-slate-900 dark:text-slate-100"
                         >
                           Domain: {data?.domain}
                         </Dialog.Title>
 
                         <button onClick={() => setIsOpen(false)}>
-                          <X className="stroke-slate-500 hover:stroke-slate-800 transition-colors" />
+                          <X className="stroke-slate-500 dark:stroke-slate-300 dark:hover:stroke-slate-100 hover:stroke-slate-800 transition-colors" />
                         </button>
                       </div>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
                           Here are the DNS records and SSL information for{" "}
                           {data?.domain}
                         </p>
                       </div>
                       <DomainInfoTabs data={data} />
                       <div className="mt-4">
-                        <Button onClick={() => setIsOpen(false)}>Close</Button>
+                        <Button className="dark:bg-slate-100 dark:text-slate-900" onClick={() => setIsOpen(false)}>Close</Button>
                       </div>
                     </>
                   )}
@@ -108,11 +111,11 @@ export function DomainInfoTabs({ data }) {
   const sortedDomainData = data.records.sort((a, b) => a.type > b.type);
   return (
     <Tab.Group as="div" className="mt-6">
-      <Tab.List className="space-x-5 border-b border-gray-200">
-        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
+      <Tab.List className="space-x-5 border-b border-gray-200 dark:border-slate-800">
+        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 dark:ui-selected:border-slate-200 dark:ui-selected:text-slate-200 border-transparent text-slate-500 dark:text-slate-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-slate-300 dark:hover:text-slate-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
           DNS Records
         </Tab>
-        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
+        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 dark:ui-selected:border-slate-200 dark:ui-selected:text-slate-200 border-transparent text-slate-500 dark:text-slate-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-slate-300 dark:hover:text-slate-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
           SSL Info
         </Tab>
       </Tab.List>
@@ -120,7 +123,7 @@ export function DomainInfoTabs({ data }) {
         <Tab.Panel>
           <Table className="mt-5">
             <TableHeader>
-              <TableRow>
+              <TableRow className="dark:border-b-slate-800">
                 <TableHead>Type</TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Value</TableHead>
@@ -129,7 +132,7 @@ export function DomainInfoTabs({ data }) {
             </TableHeader>
             <TableBody>
               {sortedDomainData?.map((record, index) => (
-                <TableRow key={index}>
+                <TableRow className="dark:border-b-slate-800" key={index}>
                   <TableCell>{record.type}</TableCell>
                   <TableCell>{record.name}</TableCell>
                   <TableCell className="whitespace-normal max-w-5xl">
@@ -163,7 +166,7 @@ export function DomainInfoTabs({ data }) {
           ) : (
             <Table className="mt-5">
               <TableHeader>
-                <TableRow>
+                <TableRow className="dark:border-b-slate-800">
                   <TableHead>Days Remaining</TableHead>
                   <TableHead>Valid</TableHead>
                   <TableHead>Valid From</TableHead>

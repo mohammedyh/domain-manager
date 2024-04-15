@@ -1,6 +1,7 @@
 import { UserButton } from "@clerk/clerk-react";
 import PropTypes from "prop-types";
 import AddDomainModal from "./AddDomainModal";
+import { ModeToggle } from "./ThemeToggle";
 
 export default function Header({ showModal, setShowModal }) {
   return (
@@ -8,11 +9,12 @@ export default function Header({ showModal, setShowModal }) {
       <h1 className="font-medium text-xl dark:text-slate-200">Dashboard</h1>
       <div className="flex items-center">
         <AddDomainModal
-          className="mr-7 sm:mr-10 flex items-center text-xs sm:text-sm"
+          className="mr-6 flex items-center text-xs sm:text-sm"
           buttonText="Add Domain"
           showModal={showModal}
           setShowModal={setShowModal}
         />
+        <ModeToggle />
         <UserButton afterSignOutUrl="/signin" />
       </div>
     </div>

@@ -87,7 +87,7 @@ export default function AddDomainModal({
       <div>
         <Button className={className} onClick={() => setShowModal(true)}>
           {buttonText}
-          <kbd className="rounded ml-3 bg-slate-500/50 px-2 py-0.5 text-xs font-light text-indigo-100">
+          <kbd className="rounded ml-3 bg-slate-500/50 dark:bg-slate-900 dark:text-slate-100 px-2 py-0.5 text-xs font-light text-indigo-100">
             A
           </kbd>
         </Button>
@@ -109,7 +109,7 @@ export default function AddDomainModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-30" />
+            <div className="fixed inset-0 bg-black bg-opacity-30 dark:bg-opacity-50" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -123,23 +123,23 @@ export default function AddDomainModal({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform dark:bg-slate-900 overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
                   <div className="flex justify-between">
                     <Dialog.Title
                       as="h2"
-                      className="text-lg font-semibold leading-6 text-gray-900"
+                      className="text-lg font-semibold leading-6 text-slate-900 dark:text-slate-100"
                     >
                       Add a Domain
                     </Dialog.Title>
 
                     <button onClick={() => setShowModal(false)}>
-                      <X className="stroke-slate-500 hover:stroke-slate-800 transition-colors" />
+                      <X className="stroke-slate-500 dark:stroke-slate-300 dark:hover:stroke-slate-100 hover:stroke-slate-800 transition-colors" />
                     </button>
                   </div>
 
                   <form onSubmit={handleFormSubmit}>
                     <div className="mt-4">
-                      <label className="text-sm text-slate-600">
+                      <label className="text-sm text-slate-600 dark:text-slate-300">
                         Domain Name
                         <Input
                           className="mt-1"

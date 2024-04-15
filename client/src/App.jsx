@@ -103,7 +103,7 @@ function App() {
         ) : (
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="dark:border-b-slate-800">
                 <TableHead>Domain</TableHead>
                 <TableHead>Expires On</TableHead>
                 <TableHead>Registered On</TableHead>
@@ -124,7 +124,7 @@ function App() {
                   registrar,
                   updatedDate,
                 }) => (
-                  <TableRow key={id}>
+                  <TableRow className="dark:border-b-slate-800" key={id}>
                     <TableCell>{domainName}</TableCell>
                     <TableCell>
                       {dayjs(expiryDate).format("YYYY-MM-DD")}
@@ -137,11 +137,11 @@ function App() {
                     </TableCell>
                     <TableCell>
                       {dayjs(expiryDate).isBefore() ? (
-                        <Badge className="bg-red-200 text-red-800 hover:bg-red-200 hover:text-red-800">
+                        <Badge className="bg-red-200 text-red-800 dark:bg-red-600/50 dark:text-slate-200 dark:hover:bg-red-600/60 hover:bg-red-200 hover:text-red-800">
                           <span className="font-medium">Expired</span>
                         </Badge>
                       ) : (
-                        <Badge className="bg-green-200 text-green-800 hover:bg-green-200 hover:text-green-800">
+                        <Badge className="bg-green-200 text-green-800 dark:bg-freen-600/50 dark:text-slate-800 hover:bg-green-200 hover:text-green-800">
                           <span className="font-medium">Active</span>
                         </Badge>
                       )}
