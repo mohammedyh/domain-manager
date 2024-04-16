@@ -1,7 +1,8 @@
 import { UserButton } from "@clerk/clerk-react";
 import PropTypes from "prop-types";
-import AddDomainModal from "./AddDomainModal";
-import { ModeToggle } from "./ThemeToggle";
+
+import AddDomainModal from "@/components/add-domain-modal";
+import { ModeToggle } from "@/components/theme-toggle";
 
 export default function Header({ showModal, setShowModal }) {
   return (

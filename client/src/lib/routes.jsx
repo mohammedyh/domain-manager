@@ -1,6 +1,7 @@
 import { SignIn, SignUp, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Navigate } from "react-router-dom";
-import App from "../App";
+
+import App from "@/App";
 
 const routes = [
   {

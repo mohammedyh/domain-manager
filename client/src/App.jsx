@@ -1,7 +1,13 @@
-import DomainInfoModal from "@/components/DomainInfoModal";
-import ErrorScreen from "@/components/ErrorScreen";
-import Header from "@/components/Header";
-import LoadingSkeleton from "@/components/LoadingSkeleton";
+import dayjs from "dayjs";
+import { Clock7, Globe, Lock } from "lucide-react";
+import { useState } from "react";
+import { Toaster } from "sonner";
+
+import DomainDeleteModal from "@/components/delete-domain-modal";
+import DomainInfoModal from "@/components/domain-info-modal";
+import ErrorScreen from "@/components/error-screen";
+import Header from "@/components/header";
+import LoadingSkeleton from "@/components/loading-skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -13,11 +19,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useFetchAllDomains } from "@/hooks/useFetchAllDomains";
-import dayjs from "dayjs";
-import { Clock7, Globe, Lock } from "lucide-react";
-import { useState } from "react";
-import { Toaster } from "sonner";
-import DomainDeleteModal from "./components/DeleteDomainModal";
 
 function App() {
   const { data, error, isLoading } = useFetchAllDomains();
