@@ -1,5 +1,6 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import PropType from "prop-types";
+
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function LoadingSkeleton({ type }) {
   if (type === "dashboard") return <DashboardLoadingSkeleton />;

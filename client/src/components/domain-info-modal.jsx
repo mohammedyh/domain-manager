@@ -1,3 +1,11 @@
+import { Dialog, Tab, Transition } from "@headlessui/react";
+import dayjs from "dayjs";
+import { X } from "lucide-react";
+import PropTypes from "prop-types";
+import { Fragment, useState } from "react";
+
+import Button from "@/components/button";
+import LoadingSkeleton from "@/components/loading-skeleton";
 import {
   Table,
   TableBody,
@@ -6,14 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Dialog, Tab, Transition } from "@headlessui/react";
-import dayjs from "dayjs";
-import { X } from "lucide-react";
-import PropTypes from "prop-types";
-import { Fragment, useState } from "react";
-import { useDomain } from "../hooks/useDomain";
-import Button from "./Button";
-import LoadingSkeleton from "./LoadingSkeleton";
+import { useDomain } from "@/hooks/useDomain";
 
 export default function DomainInfoModal({ buttonText, domainName }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -88,7 +89,12 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                       </div>
                       <DomainInfoTabs data={data} />
                       <div className="mt-4">
-                        <Button className="dark:bg-slate-100 dark:text-slate-900" onClick={() => setIsOpen(false)}>Close</Button>
+                        <Button
+                          className="dark:bg-slate-100 dark:text-slate-900"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Close
+                        </Button>
                       </div>
                     </>
                   )}

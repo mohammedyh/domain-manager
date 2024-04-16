@@ -1,6 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { domainSchema } from "@/lib/schema";
 import { useAuth } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { X } from "lucide-react";
@@ -8,6 +5,10 @@ import PropTypes from "prop-types";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { domainSchema } from "@/lib/schema";
 
 export default function AddDomainModal({
   buttonText,

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/clerk-react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Trash, X } from "lucide-react";
@@ -6,6 +5,8 @@ import PropTypes from "prop-types";
 import { Fragment, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
+
+import { Button } from "@/components/ui/button";
 
 export default function DomainDeleteModal({ domainName, domainId }) {
   const { getToken } = useAuth();
