@@ -142,7 +142,7 @@ function App() {
                           <span className="font-medium">Expired</span>
                         </Badge>
                       ) : (
-                        <Badge className="bg-green-200 text-green-800 dark:bg-freen-600/50 dark:text-slate-800 hover:bg-green-200 hover:text-green-800">
+                        <Badge className="bg-green-200 text-green-800 dark:bg-green-200 dark:text-slate-800 hover:bg-green-200 hover:text-green-800">
                           <span className="font-medium">Active</span>
                         </Badge>
                       )}
