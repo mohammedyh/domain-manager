@@ -9,7 +9,9 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get("/domains", async (req, res) => {
-  if (!req.auth.userId) {
+  const { userId } = req.auth;
+
+  if (!userId) {
     return res.status(401).json({
       message: "Unauthorized",
       description:
@@ -18,7 +20,7 @@ router.get("/domains", async (req, res) => {
   }
 
   const domains = await prisma.domain.findMany({
-    where: { user: req.auth.userId },
+    where: { user: userId },
     select: {
       id: true,
       domainName: true,
@@ -36,8 +38,17 @@ router.get("/domains", async (req, res) => {
 });
 
 router.post("/domains/add", async (req, res) => {
-  const { domainName } = req.body;
   const { userId } = req.auth;
+
+  if (!userId) {
+    return res.status(401).json({
+      message: "Unauthorized",
+      description:
+        "Authentication failed due to invalid or missing credentials.",
+    });
+  }
+
+  const { domainName } = req.body;
 
   if (!domainName) {
     return res.status(400).json({ message: "Domain name is missing" });
@@ -76,6 +87,14 @@ router.post("/domains/add", async (req, res) => {
 });
 
 router.get("/domains/:domainName", async (req, res) => {
+  if (!req.auth.userId) {
+    return res.status(401).json({
+      message: "Unauthorized",
+      description:
+        "Authentication failed due to invalid or missing credentials.",
+    });
+  }
+
   const { domainName } = req.params;
   const records = await getAllDnsRecords(domainName);
   let sslInfo;
@@ -89,13 +108,27 @@ router.get("/domains/:domainName", async (req, res) => {
   return res.status(200).json({ domain: domainName, records, sslInfo });
 });
 
-router.delete("/domains/:id", async (req, res) => {
-  if (!req.params.id) {
+router.delete("/domains/:domainId", async (req, res) => {
+  const { userId } = req.auth;
+
+  if (!userId) {
+    return res.status(401).json({
+      message: "Unauthorized",
+      description:
+        "Authentication failed due to invalid or missing credentials.",
+    });
+  }
+
+  const { domainId } = req.params;
+
+  if (!domainId) {
     return res.status(400).json({ error: "Domain ID not provided." });
   }
 
   try {
-    await prisma.domain.delete({ where: { id: parseInt(req.params.id) } });
+    await prisma.domain.delete({
+      where: { user: userId, id: parseInt(domainId) },
+    });
     return res.status(200).json({ message: "Domain deleted successfully." });
   } catch (error) {
     console.error(error);
