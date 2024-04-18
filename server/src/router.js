@@ -2,6 +2,7 @@ import { getAllDnsRecords } from "@layered/dns-records";
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import sslChecker from "ssl-checker";
+
 import { getWhoisData } from "./utils.js";
 
 const router = Router();

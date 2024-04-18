@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "node src/server.js",
-    "dev:watch": "node src/server.js --watch",
+    "dev:watch": "node --watch src/server.js",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "eslint \"**/*.js\" --fix"
   },

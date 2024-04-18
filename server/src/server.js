@@ -3,6 +3,7 @@ import { ClerkExpressWithAuth } from "@clerk/clerk-sdk-node";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+
 import router from "./router.js";
 
 const app = express();
@@ -15,7 +16,7 @@ app.use(express.json());
 
 app.use("/api", router);
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   return res
     .status(500)
