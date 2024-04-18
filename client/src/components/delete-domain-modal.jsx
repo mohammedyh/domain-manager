@@ -26,9 +26,9 @@ export default function DomainDeleteModal({ domainName, domainId }) {
   return (
     <>
       <Button
-        variant="outline"
-        size="icon"
-        className="px-3 text-xs bg-red-100 dark:bg-red-400/15 dark:hover:bg-red-400/15 border-none hover:bg-red-100"
+        variant="destructive"
+        size="sm"
+        className="px-3"
         onClick={() => setIsOpen(true)}
       >
         <Trash className="h-4 w-4 stroke-red-600" />
@@ -93,7 +93,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
                         Cancel
                       </Button>
                       <Button
-                        className="ml-3 focus:ring-2 focus:ring-slate-950 dark:focus:ring-slate-200 focus:ring-offset-2 dark:bg-red-800"
+                        className="ml-3 bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-slate-950 dark:focus:ring-slate-200 focus:ring-offset-2 dark:bg-red-800 dark:hover:bg-red-900"
                         variant="destructive"
                         onClick={() => deleteDomainById(domainId)}
                         ref={deleteButtonRef}

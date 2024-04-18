@@ -4,8 +4,8 @@ import { X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
 
-import Button from "@/components/button";
 import LoadingSkeleton from "@/components/loading-skeleton";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -30,6 +30,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
     <>
       <Button
         className="px-3 text-xs dark:bg-slate-50 dark:text-slate-900"
+        size="sm"
         onClick={handleClick}
       >
         {buttonText}
@@ -90,7 +91,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
                       <DomainInfoTabs data={data} />
                       <div className="mt-4">
                         <Button
-                          className="dark:bg-slate-100 dark:text-slate-900"
+                          variant="secondary"
                           onClick={() => setIsOpen(false)}
                         >
                           Close

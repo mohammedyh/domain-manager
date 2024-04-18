@@ -1,4 +1,4 @@
-import Button from "@/components/button";
+import { Button } from "@/components/ui/button";
 
 export default function ErrorScreen() {
   return (
@@ -10,10 +10,10 @@ export default function ErrorScreen() {
         height="300"
         loading="lazy"
       />
-      <h1 className="mt-8 mb-4 text-3xl font-semibold text-slate-900">
+      <h1 className="mt-8 mb-4 text-3xl font-semibold text-slate-900 dark:text-slate-100">
         Something went wrong.
       </h1>
-      <p className="text-lg text-slate-700 mb-6">
+      <p className="mb-6 text-lg text-slate-700 dark:text-slate-300">
         We are sorry for the inconvenience, try again later.
       </p>
       <Button onClick={() => window.location.reload()}>
