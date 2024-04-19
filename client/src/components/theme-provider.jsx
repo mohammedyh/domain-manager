@@ -57,6 +57,7 @@ ThemeProvider.propTypes = {
   storageKey: PropTypes.string.isRequired,
 };
 
+// TODO: move into hooks directory
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
 

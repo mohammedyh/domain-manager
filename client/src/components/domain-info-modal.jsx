@@ -1,8 +1,10 @@
 import { Dialog, Tab, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { X } from "lucide-react";
+import { RefreshCw, X } from "lucide-react";
 import PropTypes from "prop-types";
 import { Fragment, useState } from "react";
+import { toast } from "sonner";
+import { mutate } from "swr";
 
 import LoadingSkeleton from "@/components/loading-skeleton";
 import { Button } from "@/components/ui/button";
@@ -115,16 +117,27 @@ DomainInfoModal.propTypes = {
 };
 
 export function DomainInfoTabs({ data }) {
+  function handleRefetch() {
+    mutate(`/api/domains/${data.domain}`);
+    toast.success(`Refetched data for ${data.domain}`);
+  }
+
   const sortedDomainData = data.records.sort((a, b) => a.type > b.type);
   return (
     <Tab.Group as="div" className="mt-6">
-      <Tab.List className="space-x-5 border-b border-gray-200 dark:border-slate-800">
-        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 dark:ui-selected:border-slate-200 dark:ui-selected:text-slate-200 border-transparent text-slate-500 dark:text-slate-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-slate-300 dark:hover:text-slate-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
-          DNS Records
-        </Tab>
-        <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 dark:ui-selected:border-slate-200 dark:ui-selected:text-slate-200 border-transparent text-slate-500 dark:text-slate-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-slate-300 dark:hover:text-slate-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
-          SSL Info
-        </Tab>
+      <Tab.List className="flex justify-between border-b border-gray-200 dark:border-slate-800">
+        <div className="space-x-5">
+          <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 dark:ui-selected:border-slate-200 dark:ui-selected:text-slate-200 border-transparent text-slate-500 dark:text-slate-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-slate-300 dark:hover:text-slate-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
+            DNS Records
+          </Tab>
+          <Tab className="ui-selected:border-slate-500 ui-selected:text-slate-600 dark:ui-selected:border-slate-200 dark:ui-selected:text-slate-200 border-transparent text-slate-500 dark:text-slate-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-slate-300 dark:hover:text-slate-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
+            SSL Info
+          </Tab>
+        </div>
+        <Button onClick={handleRefetch}>
+          <RefreshCw className="w-4 h-4 mr-1.5" />
+          Refetch
+        </Button>
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel>

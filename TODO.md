@@ -1,7 +1,7 @@
 Features:
 - [ ] Store DNS records / SSL information in database
-- [ ] Have DNS records / SSL information re-fetched at an interval (every 6 or 24 hours)
-- [ ] Have a button in the domain modal to manually re-fetch DNS records / SSL information
+- [ ] Have domain data refetched at an interval - every 6 or 24 hours. (Only makes sense to do when data is stored and retrieved from the database
+- [x] Have a button in the domain modal to manually refetch DNS records / SSL information
 - [x] Show confirmation modal when deleting domain
 - [x] Indicate expiring domains and SSLs in table (maybe have an 'expiring' status)
 - [x] Sort DNS records by their type
