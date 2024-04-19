@@ -8,6 +8,7 @@ import DomainInfoModal from "@/components/domain-info-modal";
 import ErrorScreen from "@/components/error-screen";
 import Header from "@/components/header";
 import LoadingSkeleton from "@/components/loading-skeleton";
+import { useTheme } from "@/components/theme-provider";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -23,6 +24,7 @@ import { useFetchAllDomains } from "@/hooks/useFetchAllDomains";
 function App() {
   const { data, error, isLoading } = useFetchAllDomains();
   const [showModal, setShowModal] = useState(false);
+  const { theme } = useTheme();
 
   if (error) return <ErrorScreen />;
   if (isLoading) return <LoadingSkeleton type="dashboard" />;
@@ -168,7 +170,7 @@ function App() {
           </Table>
         )}
       </Card>
-      <Toaster />
+      <Toaster theme={theme} />
     </main>
   );
 }
