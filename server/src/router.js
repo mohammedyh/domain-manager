@@ -10,15 +10,6 @@ const prisma = new PrismaClient();
 
 router.get("/domains", async (req, res) => {
   const { userId } = req.auth;
-
-  if (!userId) {
-    return res.status(401).json({
-      message: "Unauthorized",
-      description:
-        "Authentication failed due to invalid or missing credentials.",
-    });
-  }
-
   const domains = await prisma.domain.findMany({
     where: { user: userId },
     select: {
@@ -39,15 +30,6 @@ router.get("/domains", async (req, res) => {
 
 router.post("/domains/add", async (req, res) => {
   const { userId } = req.auth;
-
-  if (!userId) {
-    return res.status(401).json({
-      message: "Unauthorized",
-      description:
-        "Authentication failed due to invalid or missing credentials.",
-    });
-  }
-
   const { domainName } = req.body;
 
   if (!domainName) {
@@ -87,14 +69,6 @@ router.post("/domains/add", async (req, res) => {
 });
 
 router.get("/domains/:domainName", async (req, res) => {
-  if (!req.auth.userId) {
-    return res.status(401).json({
-      message: "Unauthorized",
-      description:
-        "Authentication failed due to invalid or missing credentials.",
-    });
-  }
-
   const { domainName } = req.params;
   const records = await getAllDnsRecords(domainName);
   let sslInfo;
@@ -110,15 +84,6 @@ router.get("/domains/:domainName", async (req, res) => {
 
 router.delete("/domains/:domainId", async (req, res) => {
   const { userId } = req.auth;
-
-  if (!userId) {
-    return res.status(401).json({
-      message: "Unauthorized",
-      description:
-        "Authentication failed due to invalid or missing credentials.",
-    });
-  }
-
   const { domainId } = req.params;
 
   if (!domainId) {
