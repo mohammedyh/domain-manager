@@ -85,17 +85,17 @@ function App() {
 
       <Card className="h-full mt-8">
         {!data.domains.length ? (
-          <div className="flex flex-col items-center justify-center rounded-md bg-white py-12">
-            <h2 className="z-10 text-xl font-semibold text-gray-700">
+          <div className="flex flex-col items-center justify-center rounded-md bg-white dark:bg-slate-950 py-12">
+            <h2 className="z-10 text-xl font-semibold text-gray-700 dark:text-slate-50">
               You {"don't"} have any domains yet!
             </h2>
             <img
+              className="pointer-events-none blur-0 my-4 dark:invert dark:hue-rotate-180"
+              src="/product-launch.svg"
               alt="No domains have been created yet"
-              loading="lazy"
               width="250"
               height="250"
-              className="pointer-events-none blur-0 my-4"
-              src="/product-launch.svg"
+              loading="lazy"
             />
             <Button onClick={() => setShowModal(true)}>Add a Domain</Button>
           </div>

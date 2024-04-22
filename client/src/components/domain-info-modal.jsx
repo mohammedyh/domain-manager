@@ -168,8 +168,8 @@ export function DomainInfoTabs({ data }) {
           {!data?.sslInfo.validFrom || !data?.sslInfo.validTo ? (
             <div className="my-6 flex flex-col justify-center text-center items-center">
               <img
+                className="pointer-events-none blur-0 my-2 dark:invert dark:hue-rotate-180"
                 src="/person-falling.svg"
-                className="pointer-events-none blur-0 my-2"
                 alt="No SSL information available"
                 width="250"
                 height="250"

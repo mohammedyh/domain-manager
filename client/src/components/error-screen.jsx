@@ -4,6 +4,7 @@ export default function ErrorScreen() {
   return (
     <div className="flex flex-col items-center justify-center text-center min-h-screen">
       <img
+        className="pointer-events-none blur-0 my-4 dark:invert dark:hue-rotate-180"
         src="/crashed-error.svg"
         alt="Error"
         width="300"
