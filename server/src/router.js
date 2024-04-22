@@ -22,10 +22,13 @@ router.get("/domains", async (req, res) => {
     },
   });
 
+  const sslPromises = domains.map((domain) => sslChecker(domain.domainName));
+  const sslInfo = await Promise.allSettled(sslPromises);
+
   if (!domains) {
     return res.status(200).json({ message: "No domains found" });
   }
-  return res.status(200).json({ domains, success: "true" });
+  return res.status(200).json({ domains, sslInfo });
 });
 
 router.post("/domains/add", async (req, res) => {

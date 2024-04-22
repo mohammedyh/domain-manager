@@ -34,6 +34,10 @@ function App() {
     dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month")
   );
 
+  const sslCertsExpiringThisMonth = data.sslInfo.filter((sslInfo) =>
+    dayjs().isSame(dayjs(sslInfo.validTo).format("YYYY-MM-DD"), "month")
+  );
+
   return (
     <main className="p-8">
       <Header showModal={showModal} setShowModal={setShowModal} />
@@ -48,7 +52,6 @@ function App() {
           </CardHeader>
           <CardContent>
             <div className="mt-2 text-2xl font-bold">{data.domains.length}</div>
-            <p className="mt-1 text-xs text-slate-600">+100% from last month</p>
           </CardContent>
         </Card>
 
@@ -63,9 +66,6 @@ function App() {
             <div className="mt-2 text-2xl font-bold">
               {domainsExpiringThisMonth.length}
             </div>
-            <p className="mt-1 text-xs text-slate-600">
-              +180.1% from last month
-            </p>
           </CardContent>
         </Card>
 
@@ -77,8 +77,9 @@ function App() {
             <Lock className="h-4 w-4 stroke-slate-500" />
           </CardHeader>
           <CardContent>
-            <div className="mt-2 text-2xl font-bold">12</div>
-            <p className="mt-1 text-xs text-slate-600">+19% from last month</p>
+            <div className="mt-2 text-2xl font-bold">
+              {sslCertsExpiringThisMonth.length}
+            </div>
           </CardContent>
         </Card>
       </div>
