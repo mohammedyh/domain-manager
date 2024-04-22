@@ -10,6 +10,7 @@ import Header from "@/components/header";
 import LoadingSkeleton from "@/components/loading-skeleton";
 import { useTheme } from "@/components/theme-provider";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -96,12 +97,7 @@ function App() {
               className="pointer-events-none blur-0 my-4"
               src="/product-launch.svg"
             />
-            <button
-              className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-opacity-75"
-              onClick={() => setShowModal(true)}
-            >
-              Add a Domain
-            </button>
+            <Button onClick={() => setShowModal(true)}>Add a Domain</Button>
           </div>
         ) : (
           <Table>
