@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
+import { requireAuth } from "@clerk/express";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(ClerkExpressRequireAuth());
+app.use(requireAuth());
 app.use(express.json());
 
 app.use("/api", router);
