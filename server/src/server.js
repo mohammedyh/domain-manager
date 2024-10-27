@@ -19,7 +19,7 @@ app.use("/api", router);
 app.use((err, _req, res, _next) => {
   console.log(err);
 
-  if ((err.message = "Unauthenticated")) {
+  if (err.message == "Unauthenticated") {
     return res.status(401).json({ message: err.message });
   }
 
