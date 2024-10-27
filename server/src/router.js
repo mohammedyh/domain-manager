@@ -4,6 +4,7 @@ import { Router } from "express";
 import sslChecker from "ssl-checker";
 
 import { getWhoisData } from "./utils.js";
+import { requireAuth } from "@clerk/express";
 
 const router = Router();
 const prisma = new PrismaClient();
