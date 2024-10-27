@@ -34,8 +34,8 @@ function App() {
     dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month")
   );
 
-  const sslCertsExpiringThisMonth = data.sslInfo.filter((sslInfo) =>
-    dayjs().isSame(dayjs(sslInfo.validTo).format("YYYY-MM-DD"), "month")
+  const sslCertsExpiringThisMonth = data.sslInfo.filter((ssl) =>
+    dayjs().isSame(dayjs(ssl.value.validTo).format("YYYY-MM-DD"), "month")
   );
 
   return (
