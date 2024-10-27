@@ -22,7 +22,7 @@ const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={clerkPubKey}>
+    <ClerkProvider publishableKey={clerkPubKey} telemetry={false}>
       <ThemeProvider defaultTheme="system" storageKey="ui-theme">
         <RouterProvider router={router} />
       </ThemeProvider>
