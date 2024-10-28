@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useDomain } from "@/hooks/useDomain";
+import { useDomain } from "@/hooks/use-domain";
 
 export default function DomainInfoModal({ buttonText, domainName }) {
   const [isOpen, setIsOpen] = useState(false);

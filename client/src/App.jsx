@@ -20,7 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useFetchAllDomains } from "@/hooks/useFetchAllDomains";
+import { useFetchAllDomains } from "@/hooks/use-fetch-all-domains";
 
 function App() {
   const { data, error, isLoading } = useFetchAllDomains();
