@@ -17,7 +17,7 @@ DomainHive effortlessly helps you manage your domains. You can view when your do
 
 **Auth:** Clerk
 
-**Tooling:** Vite, PostCSS, ESLint, Prettier, lint-staged
+**Tooling:** Vite, PostCSS, ESLint, Prettier
 
 ## Todo
 
