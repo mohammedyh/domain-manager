@@ -1,9 +1,9 @@
-# DomainHive - Domain Management Application
+#  Domain Management Application
 
-![Screenshot of DomainHive - Dark Mode](./domain-manager-dark-mode.png)
-![Screenshot of DomainHive - Light Mode](./domain-manager-light-mode.png)
+![Screenshot of Domain Manager - Dark Mode](./domain-manager-dark-mode.png)
+![Screenshot of Domain Manager - Light Mode](./domain-manager-light-mode.png)
 
-DomainHive effortlessly helps you manage your domains. You can view when your domains were registered, when they’ll expire, current DNS records, the domain registrar and more.
+Easily manage all your domains, see when they were registered, when they’ll expire, current DNS records, the registrar and more.
 
 ## Tech Stack
 
