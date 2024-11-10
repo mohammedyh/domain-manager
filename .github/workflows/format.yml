@@ -3,7 +3,7 @@ on:
   - pull_request
 
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     permissions:
       contents: write
