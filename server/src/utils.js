@@ -1,4 +1,4 @@
-import dns from "dns/promises";
+import dns from "node:dns/promises";
 import whoiser from "whoiser";
 
 export async function getWhoisData(domain) {

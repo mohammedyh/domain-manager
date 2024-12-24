@@ -33,11 +33,13 @@ function App() {
   const domainsExpiringThisMonth = data.domains.filter((domain) =>
     dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month")
   );
-
-  const sslCertsExpiringThisMonth = data.sslInfo.filter((ssl) =>
-    dayjs().isSame(dayjs(ssl.value.validTo).format("YYYY-MM-DD"), "month")
+  const validSSLCerts = data.sslInfo.filter(
+    (cert) => cert.status !== "rejected"
   );
 
+  const sslCertsExpiringThisMonth = validSSLCerts.filter((ssl) =>
+    dayjs().isSame(dayjs(ssl.value.validTo).format("YYYY-MM-DD"), "month")
+  );
   return (
     <main className="p-8">
       <Header showModal={showModal} setShowModal={setShowModal} />
