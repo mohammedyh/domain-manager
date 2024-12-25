@@ -85,7 +85,9 @@ router.get("/domains/:domainName", async (req, res) => {
     sslInfo = `Unable to retrieve SSL information for ${domainName}`;
   }
 
-  return res.status(200).json({ domain: domainName, records, sslInfo, sslStatus });
+  return res
+    .status(200)
+    .json({ domain: domainName, records, sslInfo, sslStatus });
 });
 
 router.delete("/domains/:domainId", async (req, res) => {
