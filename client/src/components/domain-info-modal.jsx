@@ -187,8 +187,9 @@ export function DomainInfoTabs({ data }) {
             <Table className="mt-5">
               <TableHeader>
                 <TableRow className="dark:border-b-slate-800">
+                  <TableHead>Issuer</TableHead>
+                  <TableHead>Status</TableHead>
                   <TableHead>Days Remaining</TableHead>
-                  <TableHead>Valid</TableHead>
                   <TableHead>Valid From</TableHead>
                   <TableHead>Valid To</TableHead>
                   <TableHead>Valid For</TableHead>
@@ -196,8 +197,13 @@ export function DomainInfoTabs({ data }) {
               </TableHeader>
               <TableBody>
                 <TableRow>
+                  <TableCell>
+                    {data?.sslInfo?.issuer.O ?? "Unknown Issuer"}
+                  </TableCell>
+                  <TableCell className="capitalize">
+                    {data?.sslStatus.status}
+                  </TableCell>
                   <TableCell>{data?.sslInfo?.daysRemaining}</TableCell>
-                  <TableCell>{data?.sslInfo?.valid ? "Yes" : "No"}</TableCell>
                   <TableCell>
                     {dayjs(data?.sslInfo?.validFrom).format("YYYY-MM-DD")}
                   </TableCell>

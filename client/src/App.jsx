@@ -36,7 +36,6 @@ function App() {
   const validSSLCerts = data.sslInfo.filter(
     (cert) => cert.status !== "rejected"
   );
-
   const sslCertsExpiringThisMonth = validSSLCerts.filter((ssl) =>
     dayjs().isSame(dayjs(ssl.value.validTo).format("YYYY-MM-DD"), "month")
   );

@@ -1,9 +1,9 @@
 import { getAllDnsRecords } from "@layered/dns-records";
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
-import sslChecker from "ssl-checker";
+import { getCertStatusByDomain } from "easy-ocsp";
 
-import { getWhoisData } from "./utils.js";
+import { getWhoisData, getSSLCertificate } from "./utils.js";
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -22,7 +22,9 @@ router.get("/domains", async (req, res) => {
     },
   });
 
-  const sslPromises = domains.map((domain) => sslChecker(domain.domainName));
+  const sslPromises = domains.map((domain) =>
+    getSSLCertificate(domain.domainName)
+  );
   const sslInfo = await Promise.allSettled(sslPromises);
 
   if (!domains) {
@@ -74,15 +76,16 @@ router.post("/domains/add", async (req, res) => {
 router.get("/domains/:domainName", async (req, res) => {
   const { domainName } = req.params;
   const records = await getAllDnsRecords(domainName);
-  let sslInfo;
+  let sslInfo, sslStatus;
 
   try {
-    sslInfo = await sslChecker(domainName);
+    sslInfo = await getSSLCertificate(domainName);
+    sslStatus = await getCertStatusByDomain(domainName);
   } catch (error) {
     sslInfo = `Unable to retrieve SSL information for ${domainName}`;
   }
 
-  return res.status(200).json({ domain: domainName, records, sslInfo });
+  return res.status(200).json({ domain: domainName, records, sslInfo, sslStatus });
 });
 
 router.delete("/domains/:domainId", async (req, res) => {

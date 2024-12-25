@@ -14,5 +14,5 @@ model Domain {
   registrar      String
   expiryDate     DateTime
   registeredDate DateTime
-  updatedDate    DateTime
+  updatedDate    DateTime?
 }
