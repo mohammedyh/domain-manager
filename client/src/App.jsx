@@ -49,7 +49,7 @@ function App() {
             <CardTitle className="text-base font-medium">
               Total Domains
             </CardTitle>
-            <Globe className="h-4 w-4 stroke-slate-500" />
+            <Globe className="h-4 w-4 stroke-zinc-500" />
           </CardHeader>
           <CardContent>
             <div className="mt-2 text-2xl font-bold">{data.domains.length}</div>
@@ -61,7 +61,7 @@ function App() {
             <CardTitle className="text-base font-medium">
               Domains Expiring this Month
             </CardTitle>
-            <Clock7 className="h-4 w-4 stroke-slate-500" />
+            <Clock7 className="h-4 w-4 stroke-zinc-500" />
           </CardHeader>
           <CardContent>
             <div className="mt-2 text-2xl font-bold">
@@ -75,7 +75,7 @@ function App() {
             <CardTitle className="text-base font-medium">
               SSLs Expiring this Month
             </CardTitle>
-            <Lock className="h-4 w-4 stroke-slate-500" />
+            <Lock className="h-4 w-4 stroke-zinc-500" />
           </CardHeader>
           <CardContent>
             <div className="mt-2 text-2xl font-bold">
@@ -87,8 +87,8 @@ function App() {
 
       <Card className="h-full mt-8">
         {!data.domains.length ? (
-          <div className="flex flex-col items-center justify-center rounded-md bg-white dark:bg-slate-950 py-12">
-            <h2 className="z-10 text-xl font-semibold text-gray-700 dark:text-slate-50">
+          <div className="flex flex-col items-center justify-center rounded-md bg-white dark:bg-zinc-950 py-12">
+            <h2 className="z-10 text-xl font-semibold text-gray-700 dark:text-zinc-50">
               You {"don't"} have any domains yet!
             </h2>
             <img
@@ -104,7 +104,7 @@ function App() {
         ) : (
           <Table>
             <TableHeader>
-              <TableRow className="dark:border-b-slate-800">
+              <TableRow className="dark:border-b-zinc-800">
                 <TableHead>Domain</TableHead>
                 <TableHead>Expires On</TableHead>
                 <TableHead>Registered On</TableHead>
@@ -125,7 +125,7 @@ function App() {
                   registrar,
                   updatedDate,
                 }) => (
-                  <TableRow className="dark:border-b-slate-800" key={id}>
+                  <TableRow className="dark:border-b-zinc-800" key={id}>
                     <TableCell>{domainName}</TableCell>
                     <TableCell>
                       {dayjs(expiryDate).format("YYYY-MM-DD")}
@@ -138,11 +138,11 @@ function App() {
                     </TableCell>
                     <TableCell>
                       {dayjs(expiryDate).isBefore() ? (
-                        <Badge className="bg-red-200 text-red-800 dark:bg-red-600/50 dark:text-slate-200 dark:hover:bg-red-600/60 hover:bg-red-200 hover:text-red-800">
+                        <Badge className="bg-red-200 text-red-800 dark:bg-red-600/50 dark:text-zinc-200 dark:hover:bg-red-600/60 hover:bg-red-200 hover:text-red-800">
                           <span className="font-medium">Expired</span>
                         </Badge>
                       ) : (
-                        <Badge className="bg-green-200 text-green-800 dark:bg-green-200 dark:text-slate-800 hover:bg-green-200 hover:text-green-800">
+                        <Badge className="bg-green-200 text-green-800 dark:bg-green-200 dark:text-zinc-800 hover:bg-green-200 hover:text-green-800">
                           <span className="font-medium">Active</span>
                         </Badge>
                       )}

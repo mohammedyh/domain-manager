@@ -7,6 +7,11 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+      colors: {
+        zinc: {
+          925: "rgb(17, 17, 17)"
+        }
+      },
       fontFamily: {
         sans: ["Geist Sans", ...defaultTheme.fontFamily.sans],
       },

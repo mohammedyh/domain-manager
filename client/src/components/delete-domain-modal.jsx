@@ -64,23 +64,23 @@ export default function DomainDeleteModal({ domainName, domainId }) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-xl transform dark:bg-slate-900 overflow-hidden rounded-2xl bg-white p-8 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-xl transform dark:bg-zinc-900 overflow-hidden rounded-2xl bg-white p-8 text-left align-middle shadow-xl transition-all">
                   <>
                     <div className="flex justify-between items-center">
                       <Dialog.Title
                         as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900 dark:text-slate-100"
+                        className="text-lg font-medium leading-6 text-gray-900 dark:text-zinc-100"
                       >
                         Delete {domainName}
                       </Dialog.Title>
 
                       <button onClick={() => setIsOpen(false)}>
-                        <X className="stroke-slate-500 dark:stroke-slate-300 dark:hover:stroke-slate-100 hover:stroke-slate-800 transition-colors" />
+                        <X className="stroke-zinc-500 dark:stroke-zinc-300 dark:hover:stroke-zinc-100 hover:stroke-zinc-800 transition-colors" />
                       </button>
                     </div>
 
                     <div className="block mt-4">
-                      <p className="text-sm text-gray-500 dark:text-slate-300">
+                      <p className="text-sm text-gray-500 dark:text-zinc-300">
                         Are you sure you want to delete this domain?
                       </p>
                     </div>
@@ -93,7 +93,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
                         Cancel
                       </Button>
                       <Button
-                        className="ml-3 bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-slate-950 dark:focus:ring-slate-200 focus:ring-offset-2 dark:bg-red-800 dark:hover:bg-red-900"
+                        className="ml-3 bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-zinc-950 dark:focus:ring-zinc-200 focus:ring-offset-2 dark:bg-red-800 dark:hover:bg-red-900"
                         variant="destructive"
                         onClick={() => deleteDomainById(domainId)}
                         ref={deleteButtonRef}
