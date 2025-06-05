@@ -9,7 +9,7 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get("/domains", async (req, res) => {
-  const { userId } = req.auth;
+  const { userId } = req.auth();
   const domains = await prisma.domain.findMany({
     where: { user: userId },
     select: {
@@ -34,7 +34,7 @@ router.get("/domains", async (req, res) => {
 });
 
 router.post("/domains/add", async (req, res) => {
-  const { userId } = req.auth;
+  const { userId } = req.auth();
   const { domainName } = req.body;
 
   if (!domainName) {
@@ -91,7 +91,7 @@ router.get("/domains/:domainName", async (req, res) => {
 });
 
 router.delete("/domains/:domainId", async (req, res) => {
-  const { userId } = req.auth;
+  const { userId } = req.auth();
   const { domainId } = req.params;
 
   if (!domainId) {
