@@ -13,6 +13,7 @@
     "@headlessui/react": "^2.2.4",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/vite": "^4.1.11",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
@@ -29,7 +30,6 @@
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@headlessui/tailwindcss": "^0.2.2",
-    "@tailwindcss/postcss": "^4.1.11",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
