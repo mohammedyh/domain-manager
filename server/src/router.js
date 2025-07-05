@@ -42,7 +42,7 @@ router.post("/domains/add", async (req, res) => {
   }
 
   if (await prisma.domain.findFirst({ where: { user: userId, domainName } })) {
-    return res.status(409).json({ message: "Domain has already been added" });
+    return res.status(409).json({ message: "This domain has already been added" });
   }
 
   try {
@@ -67,7 +67,7 @@ router.post("/domains/add", async (req, res) => {
         updatedDate: domainWhoisFields.updatedDate,
       },
     });
-    return res.json({ message: "Successfully created domain", domain });
+    return res.json({ message: "Domain added", domain });
   } catch (error) {
     return res.status(404).json({ message: error.message });
   }
@@ -95,17 +95,17 @@ router.delete("/domains/:domainId", async (req, res) => {
   const { domainId } = req.params;
 
   if (!domainId) {
-    return res.status(400).json({ error: "Domain ID not provided." });
+    return res.status(400).json({ error: "Domain ID not provided" });
   }
 
   try {
     await prisma.domain.delete({
       where: { user: userId, id: parseInt(domainId) },
     });
-    return res.status(200).json({ message: "Domain deleted successfully." });
+    return res.status(200).json({ message: "Domain deleted" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Something went wrong." });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 });
 
