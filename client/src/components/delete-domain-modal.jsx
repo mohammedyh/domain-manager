@@ -28,7 +28,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
       <Button
         variant="destructive"
         size="sm"
-        className="px-3 cursor-pointer"
+        className="px-3"
         onClick={() => setIsOpen(true)}
       >
         <Trash className="h-4 w-4 stroke-red-600" />

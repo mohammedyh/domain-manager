@@ -12,7 +12,7 @@ export default function Header({ showModal, setShowModal }) {
       </h1>
       <div className="flex items-center">
         <AddDomainModal
-          className="mr-4 md:mr-6 flex items-center text-xs sm:text-sm cursor-pointer"
+          className="mr-4 md:mr-6 flex items-center text-xs sm:text-sm"
           buttonText="Add Domain"
           showModal={showModal}
           setShowModal={setShowModal}

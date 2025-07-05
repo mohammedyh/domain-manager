@@ -31,7 +31,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
   return (
     <>
       <Button
-        className="px-3 text-xs dark:bg-zinc-50 dark:text-zinc-900 cursor-pointer"
+        className="px-3 text-xs dark:bg-zinc-50 dark:text-zinc-900"
         size="sm"
         onClick={handleClick}
       >
