@@ -8,10 +8,10 @@
     "lint:fix": "eslint \"**/*.js\" --fix"
   },
   "dependencies": {
-    "@clerk/express": "^1.6.0",
+    "@clerk/express": "^1.7.4",
     "@layered/dns-records": "2.3.0",
-    "@prisma/client": "6.9.0",
-    "dotenv": "^16.5.0",
+    "@prisma/client": "6.11.1",
+    "dotenv": "^17.0.1",
     "easy-ocsp": "^1.2.2",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
@@ -20,11 +20,19 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.28.0",
-    "eslint": "^9.28.0",
+    "@eslint/js": "^9.30.1",
+    "eslint": "^9.30.1",
     "eslint-plugin-security": "^3.0.1",
-    "globals": "^16.2.0",
-    "prettier": "^3.5.3",
-    "prisma": "^6.9.0"
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2",
+    "prisma": "^6.11.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@clerk/shared",
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma"
+    ]
   }
 }
