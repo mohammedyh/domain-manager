@@ -42,7 +42,9 @@ router.post("/domains/add", async (req, res) => {
   }
 
   if (await prisma.domain.findFirst({ where: { user: userId, domainName } })) {
-    return res.status(409).json({ message: "This domain has already been added" });
+    return res
+      .status(409)
+      .json({ message: "This domain has already been added" });
   }
 
   try {
