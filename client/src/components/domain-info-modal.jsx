@@ -31,7 +31,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
   return (
     <>
       <Button
-        className="px-3 text-xs dark:bg-zinc-50 dark:text-zinc-900"
+        className="px-3 text-xs dark:bg-zinc-50 dark:text-zinc-900 cursor-pointer"
         size="sm"
         onClick={handleClick}
       >
@@ -53,7 +53,7 @@ export default function DomainInfoModal({ buttonText, domainName }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25 dark:bg-opacity-50" />
+            <div className="fixed inset-0 bg-black/25 dark:bg-black/50" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">

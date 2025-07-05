@@ -6,17 +6,19 @@ import { ModeToggle } from "@/components/theme-toggle";
 
 export default function Header({ showModal, setShowModal }) {
   return (
-    <div className="flex justify-between">
-      <h1 className="font-medium text-xl dark:text-zinc-200">Dashboard</h1>
+    <div className="flex justify-between items-center">
+      <h1 className="font-medium mr-4 md:mr-6 md:text-xl dark:text-zinc-200">
+        Dashboard
+      </h1>
       <div className="flex items-center">
         <AddDomainModal
-          className="mr-6 flex items-center text-xs sm:text-sm"
+          className="mr-4 md:mr-6 flex items-center text-xs sm:text-sm cursor-pointer"
           buttonText="Add Domain"
           showModal={showModal}
           setShowModal={setShowModal}
         />
         <ModeToggle />
-        <UserButton afterSignOutUrl="/signin" />
+        <UserButton />
       </div>
     </div>
   );

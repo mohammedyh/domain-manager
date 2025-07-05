@@ -28,7 +28,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
       <Button
         variant="destructive"
         size="sm"
-        className="px-3"
+        className="px-3 cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         <Trash className="h-4 w-4 stroke-red-600" />
@@ -50,7 +50,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25 dark:bg-opacity-50" />
+            <div className="fixed inset-0 bg-black/25 dark:bg-black/50" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
