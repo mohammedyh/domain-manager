@@ -33,14 +33,13 @@ export default function AddDomainModal({
 
   const onKeyDown = useCallback(
     (event) => {
-      const existingOpenModal = document.querySelector(
-        '[data-headlessui-state="open"]'
-      );
+      const existingOpenDialog = document.querySelector("[data-state=open]");
       const openClerkModal = document.querySelector(".cl-modalBackdrop");
       if (
+        (event.key === "a" && event.metaKey) ||
+        (event.key === "a" && event.ctrlKey) ||
         event.key !== "a" ||
-        showModal ||
-        existingOpenModal ||
+        existingOpenDialog ||
         openClerkModal
       ) {
         return;
@@ -49,7 +48,7 @@ export default function AddDomainModal({
       event.preventDefault();
       setShowModal(true);
     },
-    [showModal, setShowModal]
+    [setShowModal]
   );
 
   useEffect(() => {
