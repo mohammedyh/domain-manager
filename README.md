@@ -9,7 +9,7 @@ Easily manage all your domains, see when they were registered, when they’ll ex
 
 **Client:** React, React Router, SWR, Day.js
 
-**Styling:** shadcn/ui, HeadlessUI, Tailwind
+**Styling:** shadcn/ui, Tailwind
 
 **Server:** Node, Express, Whoiser
 
@@ -17,15 +17,4 @@ Easily manage all your domains, see when they were registered, when they’ll ex
 
 **Auth:** Clerk
 
-**Tooling:** Vite, PostCSS, ESLint, Prettier
-
-## Todo
-
-Features:
-- [ ] Store DNS records / SSL information in database
-- [ ] Refetch data on a cron - every 6 or 24 hours.
-- [ ] Show SSL certificate issuer
-
-Code Structure:
-- [ ] Look at ways to improve app structure, API design, client-side data fetching methods, caching etc.
-- [ ] Implement React and Express "best practices"
+**Tooling:** Vite, ESLint, Prettier
