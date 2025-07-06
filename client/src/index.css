@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@plugin "@headlessui/tailwindcss";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme {

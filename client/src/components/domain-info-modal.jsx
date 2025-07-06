@@ -14,7 +14,6 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogOverlay,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -26,8 +25,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useDomain } from "@/hooks/use-domain";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useDomain } from "@/hooks/use-domain";
 
 export default function DomainInfoModal({ buttonText, domainName }) {
   const [isOpen, setIsOpen] = useState(false);
