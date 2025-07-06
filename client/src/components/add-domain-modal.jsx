@@ -1,14 +1,24 @@
 import { useAuth } from "@clerk/clerk-react";
-import { Dialog, Transition } from "@headlessui/react";
-import { X } from "lucide-react";
 import PropTypes from "prop-types";
-import { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
 
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { domainSchema } from "@/lib/schema";
+import { useEffect } from "react";
 
 export default function AddDomainModal({
   buttonText,
@@ -23,14 +33,13 @@ export default function AddDomainModal({
 
   const onKeyDown = useCallback(
     (event) => {
-      const existingOpenModal = document.querySelector(
-        '[data-headlessui-state="open"]'
-      );
+      const existingOpenDialog = document.querySelector("[data-state=open]");
       const openClerkModal = document.querySelector(".cl-modalBackdrop");
       if (
+        (event.key === "a" && event.metaKey) ||
+        (event.key === "a" && event.ctrlKey) ||
         event.key !== "a" ||
-        showModal ||
-        existingOpenModal ||
+        existingOpenDialog ||
         openClerkModal
       ) {
         return;
@@ -39,7 +48,7 @@ export default function AddDomainModal({
       event.preventDefault();
       setShowModal(true);
     },
-    [showModal, setShowModal]
+    [setShowModal]
   );
 
   useEffect(() => {
@@ -85,87 +94,55 @@ export default function AddDomainModal({
 
   return (
     <>
-      <div>
-        <Button className={className} onClick={() => setShowModal(true)}>
-          {buttonText}
-          <kbd className="rounded ml-3 bg-zinc-500/50 dark:bg-zinc-900 dark:text-zinc-100 px-2 py-0.5 text-xs font-light text-indigo-100">
-            A
-          </kbd>
-        </Button>
-      </div>
-
-      <Transition appear show={showModal} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={() => setShowModal(false)}
-          initialFocus={modalInputRef}
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogTrigger asChild>
+          <Button className={className} onClick={() => setShowModal(true)}>
+            {buttonText}
+            <kbd className="rounded ml-3 bg-zinc-500/50 dark:bg-zinc-900 dark:text-zinc-100 px-2 py-0.5 text-xs font-light text-indigo-100">
+              A
+            </kbd>
+          </Button>
+        </DialogTrigger>
+        <DialogContent
+          showCloseButton={false}
+          onCloseAutoFocus={() => setError("")}
         >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/30 dark:bg-black/50" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-2xl transform dark:bg-zinc-925 overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all">
-                  <div className="flex justify-between">
-                    <Dialog.Title
-                      as="h2"
-                      className="text-lg font-semibold leading-6 text-zinc-900 dark:text-zinc-100"
-                    >
-                      Add a Domain
-                    </Dialog.Title>
-
-                    <button onClick={() => setShowModal(false)}>
-                      <X className="stroke-zinc-500 dark:stroke-zinc-300 dark:hover:stroke-zinc-100 hover:stroke-zinc-800 transition-colors" />
-                    </button>
-                  </div>
-
-                  <form onSubmit={handleFormSubmit}>
-                    <div className="mt-4">
-                      <label className="text-sm text-zinc-600 dark:text-zinc-300">
-                        Domain Name
-                        <Input
-                          className="mt-1"
-                          placeholder="e.g. mohammedcodes.dev"
-                          name="domain"
-                          ref={modalInputRef}
-                        />
-                      </label>
-                      {!!error && (
-                        <p className="text-sm text-red-500 mt-2">{error}</p>
-                      )}
-                    </div>
-
-                    <div className="mt-4">
-                      <Button type="submit">
-                        {isSubmitting ? "Adding Domain..." : "Add Domain"}
-                      </Button>
-                    </div>
-                  </form>
-                </Dialog.Panel>
-              </Transition.Child>
+          <DialogHeader>
+            <DialogTitle className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
+              Add a domain
+            </DialogTitle>
+            <DialogDescription />
+          </DialogHeader>
+          <form onSubmit={handleFormSubmit} id="add-domain">
+            <div className="grid gap-4">
+              <div className="grid gap-3">
+                <Label
+                  htmlFor="domain"
+                  className="text-sm text-zinc-600 dark:text-zinc-300"
+                >
+                  Name
+                </Label>
+                <Input
+                  id="domain"
+                  name="domain"
+                  className="dark:text-zinc-100 text-zinc-900"
+                  ref={modalInputRef}
+                  placeholder="apple.com"
+                />
+                {!!error && <p className="text-sm text-red-400">{error}</p>}
+              </div>
             </div>
-          </div>
-        </Dialog>
-      </Transition>
+          </form>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button type="submit" form="add-domain">
+              {isSubmitting ? "Adding Domain..." : "Add Domain"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

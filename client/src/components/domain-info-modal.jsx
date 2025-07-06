@@ -1,13 +1,22 @@
-import { Dialog, Tab, Transition } from "@headlessui/react";
 import dayjs from "dayjs";
-import { RefreshCw, X } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import PropTypes from "prop-types";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
 
 import LoadingSkeleton from "@/components/loading-skeleton";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -16,6 +25,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDomain } from "@/hooks/use-domain";
 
 export default function DomainInfoModal({ buttonText, domainName }) {
@@ -30,83 +40,41 @@ export default function DomainInfoModal({ buttonText, domainName }) {
 
   return (
     <>
-      <Button
-        className="px-3 text-xs dark:bg-zinc-50 dark:text-zinc-900"
-        size="sm"
-        onClick={handleClick}
-      >
-        {buttonText}
-      </Button>
-
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-10"
-          onClose={() => setIsOpen(false)}
-        >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          <Button
+            className="px-3 text-xs dark:bg-zinc-50 dark:text-zinc-900"
+            size="sm"
+            onClick={handleClick}
           >
-            <div className="fixed inset-0 bg-black/25 dark:bg-black/50" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all dark:bg-zinc-900 dark:text-zinc-100">
-                  {!data ? (
-                    <LoadingSkeleton />
-                  ) : (
-                    <>
-                      <div className="flex justify-between items-center">
-                        <Dialog.Title
-                          as="h3"
-                          className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100"
-                        >
-                          Domain: {data?.domain}
-                        </Dialog.Title>
-
-                        <button onClick={() => setIsOpen(false)}>
-                          <X className="stroke-zinc-500 dark:stroke-zinc-300 dark:hover:stroke-zinc-100 hover:stroke-zinc-800 transition-colors" />
-                        </button>
-                      </div>
-                      <div className="mt-2">
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                          Here are the DNS records and SSL information for{" "}
-                          {data?.domain}
-                        </p>
-                      </div>
-                      <DomainInfoTabs data={data} />
-                      <div className="mt-4">
-                        <Button
-                          variant="secondary"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Close
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+            {buttonText}
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-6xl">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
+              Domain: {domainName}
+            </DialogTitle>
+            <DialogDescription>
+              Here are the DNS records and SSL details for {domainName}
+            </DialogDescription>
+          </DialogHeader>
+          {!data ? (
+            <LoadingSkeleton />
+          ) : (
+            <>
+              <DomainInfoTabs data={data} />
+            </>
+          )}
+          <DialogFooter className="sm:justify-start">
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Close
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
@@ -118,110 +86,109 @@ DomainInfoModal.propTypes = {
 
 export function DomainInfoTabs({ data }) {
   function handleRefetch() {
-    mutate(`/api/domains/${data.domain}`);
-    toast.success(`Refetched data for ${data.domain}`);
+    try {
+      mutate(`/api/domains/${data.domain}`);
+      toast.success(`Refetched data for ${data.domain}`);
+    } catch (error) {
+      toast.error(error);
+    }
   }
 
   const sortedDomainData = data.records.sort((a, b) => a.type > b.type);
   return (
-    <Tab.Group as="div" className="mt-6">
-      <Tab.List className="flex justify-between border-b border-gray-200 dark:border-zinc-800">
-        <div className="space-x-5">
-          <Tab className="ui-selected:border-zinc-500 ui-selected:text-zinc-600 dark:ui-selected:border-zinc-200 dark:ui-selected:text-zinc-200 border-transparent text-zinc-500 dark:text-zinc-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-zinc-300 dark:hover:text-zinc-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
-            DNS Records
-          </Tab>
-          <Tab className="ui-selected:border-zinc-500 ui-selected:text-zinc-600 dark:ui-selected:border-zinc-200 dark:ui-selected:text-zinc-200 border-transparent text-zinc-500 dark:text-zinc-400 hover:border-gray-300 hover:text-gray-700 dark:hover:border-zinc-300 dark:hover:text-zinc-300 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium transition-colors">
-            SSL Info
-          </Tab>
-        </div>
+    <Tabs defaultValue="dns-records">
+      <div className="flex items-center justify-between">
+        <TabsList>
+          <TabsTrigger value="dns-records">DNS Records</TabsTrigger>
+          <TabsTrigger value="ssl-info">SSL Info</TabsTrigger>
+        </TabsList>
         <Button onClick={handleRefetch}>
           <RefreshCw className="w-4 h-4 mr-1.5" />
           Refetch
         </Button>
-      </Tab.List>
-      <Tab.Panels>
-        <Tab.Panel>
+      </div>
+
+      <TabsContent value="dns-records">
+        <Table className="mt-5">
+          <TableHeader>
+            <TableRow className="dark:border-b-zinc-800">
+              <TableHead>Type</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Value</TableHead>
+              <TableHead>TTL</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {sortedDomainData?.map((record, index) => (
+              <TableRow className="dark:border-b-zinc-800" key={index}>
+                <TableCell>{record.type}</TableCell>
+                <TableCell>{record.name}</TableCell>
+                <TableCell className="whitespace-normal max-w-5xl">
+                  {record.data}
+                </TableCell>
+                <TableCell>{record.ttl}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TabsContent>
+      <TabsContent value="ssl-info">
+        {!data?.sslInfo.validFrom || !data?.sslInfo.validTo ? (
+          <div className="my-6 flex flex-col justify-center text-center items-center">
+            <img
+              className="pointer-events-none blur-0 my-2 dark:invert dark:hue-rotate-180"
+              src="/person-falling.svg"
+              alt="No SSL information available"
+              width="250"
+              height="250"
+              loading="lazy"
+            />
+            <h2 className="text-2xl font-medium">
+              SSL Information Unavailable
+            </h2>
+            <p className="mt-4 max-w-xl">
+              The {"website's"} SSL information could not be displayed. Please
+              ensure that the domain has a valid SSL certificate.
+            </p>
+          </div>
+        ) : (
           <Table className="mt-5">
             <TableHeader>
               <TableRow className="dark:border-b-zinc-800">
-                <TableHead>Type</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Value</TableHead>
-                <TableHead>TTL</TableHead>
+                <TableHead>Issuer</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Days Remaining</TableHead>
+                <TableHead>Valid From</TableHead>
+                <TableHead>Valid To</TableHead>
+                <TableHead>Valid For</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedDomainData?.map((record, index) => (
-                <TableRow className="dark:border-b-zinc-800" key={index}>
-                  <TableCell>{record.type}</TableCell>
-                  <TableCell>{record.name}</TableCell>
-                  <TableCell className="whitespace-normal max-w-5xl">
-                    {record.data}
-                  </TableCell>
-                  <TableCell>{record.ttl}</TableCell>
-                </TableRow>
-              ))}
+              <TableRow>
+                <TableCell>
+                  {data?.sslInfo?.issuer.O ?? "Unknown Issuer"}
+                </TableCell>
+                <TableCell className="capitalize">
+                  {data?.sslStatus.status}
+                </TableCell>
+                <TableCell>{data?.sslInfo?.daysRemaining}</TableCell>
+                <TableCell>
+                  {dayjs(data?.sslInfo?.validFrom).format("DD-MM-YYYY")}
+                </TableCell>
+                <TableCell>
+                  {dayjs(data?.sslInfo?.validTo).format("DD-MM-YYYY")}
+                </TableCell>
+                <TableCell>
+                  {data?.sslInfo?.validFor?.length > 1
+                    ? data?.sslInfo?.validFor.join(", ")
+                    : data?.sslInfo?.validFor}
+                </TableCell>
+              </TableRow>
             </TableBody>
           </Table>
-        </Tab.Panel>
-        <Tab.Panel>
-          {!data?.sslInfo.validFrom || !data?.sslInfo.validTo ? (
-            <div className="my-6 flex flex-col justify-center text-center items-center">
-              <img
-                className="pointer-events-none blur-0 my-2 dark:invert dark:hue-rotate-180"
-                src="/person-falling.svg"
-                alt="No SSL information available"
-                width="250"
-                height="250"
-                loading="lazy"
-              />
-              <h2 className="text-2xl font-medium">
-                SSL Information Unavailable
-              </h2>
-              <p className="mt-4 max-w-xl">
-                The {"website's"} SSL information could not be displayed. Please
-                ensure that the domain has a valid SSL certificate.
-              </p>
-            </div>
-          ) : (
-            <Table className="mt-5">
-              <TableHeader>
-                <TableRow className="dark:border-b-zinc-800">
-                  <TableHead>Issuer</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Days Remaining</TableHead>
-                  <TableHead>Valid From</TableHead>
-                  <TableHead>Valid To</TableHead>
-                  <TableHead>Valid For</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>
-                    {data?.sslInfo?.issuer.O ?? "Unknown Issuer"}
-                  </TableCell>
-                  <TableCell className="capitalize">
-                    {data?.sslStatus.status}
-                  </TableCell>
-                  <TableCell>{data?.sslInfo?.daysRemaining}</TableCell>
-                  <TableCell>
-                    {dayjs(data?.sslInfo?.validFrom).format("YYYY-MM-DD")}
-                  </TableCell>
-                  <TableCell>
-                    {dayjs(data?.sslInfo?.validTo).format("YYYY-MM-DD")}
-                  </TableCell>
-                  <TableCell>
-                    {data?.sslInfo?.validFor?.length > 1
-                      ? data?.sslInfo?.validFor.join(", ")
-                      : data?.sslInfo?.validFor}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          )}
-        </Tab.Panel>
-      </Tab.Panels>
-    </Tab.Group>
+        )}
+      </TabsContent>
+    </Tabs>
   );
 }
 
