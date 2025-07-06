@@ -103,7 +103,7 @@ function App() {
           </div>
         ) : (
           <Table>
-            <TableHeader>
+            <TableHeader className="bg-zinc-100/50 dark:bg-zinc-800/50">
               <TableRow className="dark:border-b-zinc-800">
                 <TableHead>Domain</TableHead>
                 <TableHead>Expires On</TableHead>
@@ -128,21 +128,21 @@ function App() {
                   <TableRow className="dark:border-b-zinc-800" key={id}>
                     <TableCell>{domainName}</TableCell>
                     <TableCell>
-                      {dayjs(expiryDate).format("YYYY-MM-DD")}
+                      {dayjs(expiryDate).format("DD-MM-YYYY")}
                     </TableCell>
                     <TableCell>
-                      {dayjs(registeredDate).format("YYYY-MM-DD")}
+                      {dayjs(registeredDate).format("DD-MM-YYYY")}
                     </TableCell>
                     <TableCell>
-                      {dayjs(updatedDate).format("YYYY-MM-DD")}
+                      {dayjs(updatedDate).format("DD-MM-YYYY")}
                     </TableCell>
                     <TableCell>
                       {dayjs(expiryDate).isBefore() ? (
-                        <Badge className="bg-red-200 text-red-800 dark:bg-red-600/50 dark:text-zinc-200 dark:hover:bg-red-600/60 hover:bg-red-200 hover:text-red-800">
+                        <Badge className="border-0 bg-red-200 text-red-800 dark:bg-red-600/50 dark:text-zinc-200 dark:hover:bg-red-600/60 hover:bg-red-200 hover:text-red-800">
                           <span className="font-medium">Expired</span>
                         </Badge>
                       ) : (
-                        <Badge className="bg-green-200 text-green-800 dark:bg-green-200 dark:text-zinc-800 hover:bg-green-200 hover:text-green-800">
+                        <Badge className="border-0 bg-green-200 text-green-800 dark:bg-green-200 dark:text-green-800 hover:bg-green-200 dark:hover:bg-green-200">
                           <span className="font-medium">Active</span>
                         </Badge>
                       )}
