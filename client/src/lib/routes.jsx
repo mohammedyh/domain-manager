@@ -20,7 +20,7 @@ const routes = [
   {
     path: "/signin/",
     element: (
-      <div className="grid place-content-center min-h-screen">
+      <div className="grid min-h-screen place-content-center">
         <SignIn signUpUrl="/signup" />
       </div>
     ),
@@ -28,7 +28,7 @@ const routes = [
   {
     path: "/signup/",
     element: (
-      <div className="grid place-content-center min-h-screen">
+      <div className="grid min-h-screen place-content-center">
         <SignUp signInUrl="/signin" />
       </div>
     ),

@@ -35,7 +35,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
     <>
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
         <AlertDialogTrigger
-          className="h-9 rounded-md px-3 bg-red-100 text-zinc-50 cursor-pointer hover:bg-red-200/90 dark:bg-red-400/15 dark:text-zinc-50 dark:hover:bg-red-400/20"
+          className="h-9 cursor-pointer rounded-md bg-red-100 px-3 text-zinc-50 hover:bg-red-200/90 dark:bg-red-400/15 dark:text-zinc-50 dark:hover:bg-red-400/20"
           onClick={() => setIsOpen(true)}
         >
           <Trash className="h-4 w-4 stroke-red-600" />
@@ -51,9 +51,7 @@ export default function DomainDeleteModal({ domainName, domainId }) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => deleteDomainById(domainId)}>
-              Delete
-            </AlertDialogAction>
+            <AlertDialogAction onClick={() => deleteDomainById(domainId)}>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

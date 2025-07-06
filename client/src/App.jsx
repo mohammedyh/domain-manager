@@ -31,13 +31,11 @@ function App() {
   if (isLoading) return <LoadingSkeleton type="dashboard" />;
 
   const domainsExpiringThisMonth = data.domains.filter((domain) =>
-    dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month")
+    dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month"),
   );
-  const validSSLCerts = data.sslInfo.filter(
-    (cert) => cert.status !== "rejected"
-  );
+  const validSSLCerts = data.sslInfo.filter((cert) => cert.status !== "rejected");
   const sslCertsExpiringThisMonth = validSSLCerts.filter((ssl) =>
-    dayjs().isSame(dayjs(ssl.value.validTo).format("YYYY-MM-DD"), "month")
+    dayjs().isSame(dayjs(ssl.value.validTo).format("YYYY-MM-DD"), "month"),
   );
   return (
     <main className="p-8">
@@ -46,9 +44,7 @@ function App() {
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base font-medium">
-              Total Domains
-            </CardTitle>
+            <CardTitle className="text-base font-medium">Total Domains</CardTitle>
             <Globe className="h-4 w-4 stroke-zinc-500" />
           </CardHeader>
           <CardContent>
@@ -58,41 +54,33 @@ function App() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base font-medium">
-              Domains Expiring this Month
-            </CardTitle>
+            <CardTitle className="text-base font-medium">Domains Expiring this Month</CardTitle>
             <Clock7 className="h-4 w-4 stroke-zinc-500" />
           </CardHeader>
           <CardContent>
-            <div className="mt-2 text-2xl font-bold">
-              {domainsExpiringThisMonth.length}
-            </div>
+            <div className="mt-2 text-2xl font-bold">{domainsExpiringThisMonth.length}</div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base font-medium">
-              SSLs Expiring this Month
-            </CardTitle>
+            <CardTitle className="text-base font-medium">SSLs Expiring this Month</CardTitle>
             <Lock className="h-4 w-4 stroke-zinc-500" />
           </CardHeader>
           <CardContent>
-            <div className="mt-2 text-2xl font-bold">
-              {sslCertsExpiringThisMonth.length}
-            </div>
+            <div className="mt-2 text-2xl font-bold">{sslCertsExpiringThisMonth.length}</div>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="h-full mt-8">
+      <Card className="mt-8 h-full">
         {!data.domains.length ? (
-          <div className="flex flex-col items-center justify-center rounded-md bg-white dark:bg-zinc-950 py-12">
+          <div className="flex flex-col items-center justify-center rounded-md bg-white py-12 dark:bg-zinc-950">
             <h2 className="z-10 text-xl font-semibold text-gray-700 dark:text-zinc-50">
               You {"don't"} have any domains yet!
             </h2>
             <img
-              className="pointer-events-none blur-0 my-4 dark:invert dark:hue-rotate-180"
+              className="blur-0 pointer-events-none my-4 dark:hue-rotate-180 dark:invert"
               src="/product-launch.svg"
               alt="No domains have been created yet"
               width="250"
@@ -117,52 +105,33 @@ function App() {
 
             <TableBody>
               {data.domains.map(
-                ({
-                  id,
-                  domainName,
-                  expiryDate,
-                  registeredDate,
-                  registrar,
-                  updatedDate,
-                }) => (
+                ({ id, domainName, expiryDate, registeredDate, registrar, updatedDate }) => (
                   <TableRow className="dark:border-b-zinc-800" key={id}>
                     <TableCell>{domainName}</TableCell>
-                    <TableCell>
-                      {dayjs(expiryDate).format("DD-MM-YYYY")}
-                    </TableCell>
-                    <TableCell>
-                      {dayjs(registeredDate).format("DD-MM-YYYY")}
-                    </TableCell>
-                    <TableCell>
-                      {dayjs(updatedDate).format("DD-MM-YYYY")}
-                    </TableCell>
+                    <TableCell>{dayjs(expiryDate).format("DD-MM-YYYY")}</TableCell>
+                    <TableCell>{dayjs(registeredDate).format("DD-MM-YYYY")}</TableCell>
+                    <TableCell>{dayjs(updatedDate).format("DD-MM-YYYY")}</TableCell>
                     <TableCell>
                       {dayjs(expiryDate).isBefore() ? (
-                        <Badge className="border-0 bg-red-200 text-red-800 dark:bg-red-600/50 dark:text-zinc-200 dark:hover:bg-red-600/60 hover:bg-red-200 hover:text-red-800">
+                        <Badge className="border-0 bg-red-200 text-red-800 hover:bg-red-200 hover:text-red-800 dark:bg-red-600/50 dark:text-zinc-200 dark:hover:bg-red-600/60">
                           <span className="font-medium">Expired</span>
                         </Badge>
                       ) : (
-                        <Badge className="border-0 bg-green-200 text-green-800 dark:bg-green-200 dark:text-green-800 hover:bg-green-200 dark:hover:bg-green-200">
+                        <Badge className="border-0 bg-green-200 text-green-800 hover:bg-green-200 dark:bg-green-200 dark:text-green-800 dark:hover:bg-green-200">
                           <span className="font-medium">Active</span>
                         </Badge>
                       )}
                     </TableCell>
                     <TableCell>{registrar}</TableCell>
                     <TableCell>
-                      <div className="flex justify-end items-center space-x-2">
-                        <DomainInfoModal
-                          buttonText="View Info"
-                          domainName={domainName}
-                        />
+                      <div className="flex items-center justify-end space-x-2">
+                        <DomainInfoModal buttonText="View Info" domainName={domainName} />
 
-                        <DomainDeleteModal
-                          domainName={domainName}
-                          domainId={id}
-                        />
+                        <DomainDeleteModal domainName={domainName} domainId={id} />
                       </div>
                     </TableCell>
                   </TableRow>
-                )
+                ),
               )}
             </TableBody>
           </Table>

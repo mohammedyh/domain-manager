@@ -9,8 +9,8 @@ export default function LoadingSkeleton({ type }) {
 
 function DashboardLoadingSkeleton() {
   return (
-    <Skeleton className="rounded-2xl dark:bg-zinc-950/25 p-8 animate-pulse">
-      <Skeleton className="flex justify-between items-center">
+    <Skeleton className="animate-pulse rounded-2xl p-8 dark:bg-zinc-950/25">
+      <Skeleton className="flex items-center justify-between">
         <Skeleton className="h-4 w-28 rounded-lg bg-zinc-600/30 dark:bg-zinc-600/40" />
         <Skeleton className="h-4 w-44 rounded-lg bg-zinc-600/30 dark:bg-zinc-600/40" />
       </Skeleton>
@@ -24,7 +24,7 @@ function DashboardLoadingSkeleton() {
 
 function DefaultLoadingSkeleton() {
   return (
-    <Skeleton className="rounded-2xl dark:bg-zinc-950/25 p-8 animate-pulse">
+    <Skeleton className="animate-pulse rounded-2xl p-8 dark:bg-zinc-950/25">
       <Skeleton className="h-4 w-1/3 rounded-lg bg-zinc-600/30 dark:bg-zinc-600/40" />
       <Skeleton className="mt-4 h-4 w-3/5 rounded-lg bg-zinc-600/30 dark:bg-zinc-600/40" />
       <Skeleton className="mt-10 h-48 rounded-lg bg-zinc-600/30 dark:bg-zinc-600/40" />

@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 
 export default function ErrorScreen() {
   return (
-    <div className="flex flex-col items-center justify-center text-center min-h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-center text-center">
       <img
-        className="pointer-events-none blur-0 my-4 dark:invert dark:hue-rotate-180"
+        className="blur-0 pointer-events-none my-4 dark:hue-rotate-180 dark:invert"
         src="/crashed-error.svg"
         alt="Error"
         width="300"
@@ -35,7 +35,7 @@ function ReloadIcon() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="mr-[6px] w-4 h-4"
+      className="mr-[6px] h-4 w-4"
     >
       <path
         strokeLinecap="round"

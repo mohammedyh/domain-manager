@@ -17,8 +17,8 @@ function TabsList({ className, ...props }) {
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "bg-zinc-100 text-zinc-500 inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px] dark:bg-zinc-800 dark:text-zinc-400",
-        className
+        "inline-flex h-9 w-fit items-center justify-center rounded-lg bg-zinc-100 p-[3px] text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400",
+        className,
       )}
       {...props}
     />
@@ -30,8 +30,8 @@ function TabsTrigger({ className, ...props }) {
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "data-[state=active]:bg-white dark:data-[state=active]:text-zinc-950 focus-visible:border-zinc-950 focus-visible:ring-zinc-950/50 focus-visible:outline-ring dark:data-[state=active]:border-zinc-200 dark:data-[state=active]:bg-zinc-200/30 text-zinc-950 dark:text-zinc-500 inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-zinc-200 border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 dark:data-[state=active]:bg-zinc-950 dark:dark:data-[state=active]:text-zinc-50 dark:focus-visible:border-zinc-300 dark:focus-visible:ring-zinc-300/50 dark:dark:data-[state=active]:border-zinc-800 dark:dark:data-[state=active]:bg-zinc-800/30 dark:text-zinc-50 dark:dark:text-zinc-400 dark:border-zinc-800",
-        className
+        "focus-visible:outline-ring inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent border-zinc-200 px-2 py-1 text-sm font-medium whitespace-nowrap text-zinc-950 transition-[color,box-shadow] focus-visible:border-zinc-950 focus-visible:ring-[3px] focus-visible:ring-zinc-950/50 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:shadow-sm dark:border-zinc-800 dark:dark:text-zinc-400 dark:text-zinc-50 dark:text-zinc-500 dark:focus-visible:border-zinc-300 dark:focus-visible:ring-zinc-300/50 dark:dark:data-[state=active]:border-zinc-800 dark:data-[state=active]:border-zinc-200 dark:dark:data-[state=active]:bg-zinc-800/30 dark:data-[state=active]:bg-zinc-200/30 dark:data-[state=active]:bg-zinc-950 dark:dark:data-[state=active]:text-zinc-50 dark:data-[state=active]:text-zinc-950 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        className,
       )}
       {...props}
     />

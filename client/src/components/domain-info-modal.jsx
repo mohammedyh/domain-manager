@@ -103,7 +103,7 @@ export function DomainInfoTabs({ data }) {
           <TabsTrigger value="ssl-info">SSL Info</TabsTrigger>
         </TabsList>
         <Button onClick={handleRefetch}>
-          <RefreshCw className="w-4 h-4 mr-1.5" />
+          <RefreshCw className="mr-1.5 h-4 w-4" />
           Refetch
         </Button>
       </div>
@@ -123,9 +123,7 @@ export function DomainInfoTabs({ data }) {
               <TableRow className="dark:border-b-zinc-800" key={index}>
                 <TableCell>{record.type}</TableCell>
                 <TableCell>{record.name}</TableCell>
-                <TableCell className="whitespace-normal max-w-5xl">
-                  {record.data}
-                </TableCell>
+                <TableCell className="max-w-5xl whitespace-normal">{record.data}</TableCell>
                 <TableCell>{record.ttl}</TableCell>
               </TableRow>
             ))}
@@ -134,21 +132,19 @@ export function DomainInfoTabs({ data }) {
       </TabsContent>
       <TabsContent value="ssl-info">
         {!data?.sslInfo.validFrom || !data?.sslInfo.validTo ? (
-          <div className="my-6 flex flex-col justify-center text-center items-center">
+          <div className="my-6 flex flex-col items-center justify-center text-center">
             <img
-              className="pointer-events-none blur-0 my-2 dark:invert dark:hue-rotate-180"
+              className="blur-0 pointer-events-none my-2 dark:hue-rotate-180 dark:invert"
               src="/person-falling.svg"
               alt="No SSL information available"
               width="250"
               height="250"
               loading="lazy"
             />
-            <h2 className="text-2xl font-medium">
-              SSL Information Unavailable
-            </h2>
+            <h2 className="text-2xl font-medium">SSL Information Unavailable</h2>
             <p className="mt-4 max-w-xl">
-              The {"website's"} SSL information could not be displayed. Please
-              ensure that the domain has a valid SSL certificate.
+              The {"website's"} SSL information could not be displayed. Please ensure that the
+              domain has a valid SSL certificate.
             </p>
           </div>
         ) : (
@@ -165,19 +161,11 @@ export function DomainInfoTabs({ data }) {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell>
-                  {data?.sslInfo?.issuer.O ?? "Unknown Issuer"}
-                </TableCell>
-                <TableCell className="capitalize">
-                  {data?.sslStatus.status}
-                </TableCell>
+                <TableCell>{data?.sslInfo?.issuer.O ?? "Unknown Issuer"}</TableCell>
+                <TableCell className="capitalize">{data?.sslStatus.status}</TableCell>
                 <TableCell>{data?.sslInfo?.daysRemaining}</TableCell>
-                <TableCell>
-                  {dayjs(data?.sslInfo?.validFrom).format("DD-MM-YYYY")}
-                </TableCell>
-                <TableCell>
-                  {dayjs(data?.sslInfo?.validTo).format("DD-MM-YYYY")}
-                </TableCell>
+                <TableCell>{dayjs(data?.sslInfo?.validFrom).format("DD-MM-YYYY")}</TableCell>
+                <TableCell>{dayjs(data?.sslInfo?.validTo).format("DD-MM-YYYY")}</TableCell>
                 <TableCell>
                   {data?.sslInfo?.validFor?.length > 1
                     ? data?.sslInfo?.validFor.join(", ")

@@ -20,12 +20,7 @@ import { Label } from "@/components/ui/label";
 import { domainSchema } from "@/lib/schema";
 import { useEffect } from "react";
 
-export default function AddDomainModal({
-  buttonText,
-  showModal,
-  setShowModal,
-  className,
-}) {
+export default function AddDomainModal({ buttonText, showModal, setShowModal, className }) {
   const modalInputRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -48,7 +43,7 @@ export default function AddDomainModal({
       event.preventDefault();
       setShowModal(true);
     },
-    [setShowModal]
+    [setShowModal],
   );
 
   useEffect(() => {
@@ -98,15 +93,12 @@ export default function AddDomainModal({
         <DialogTrigger asChild>
           <Button className={className} onClick={() => setShowModal(true)}>
             {buttonText}
-            <kbd className="rounded ml-3 bg-zinc-500/50 dark:bg-zinc-900 dark:text-zinc-100 px-2 py-0.5 text-xs font-light text-indigo-100">
+            <kbd className="ml-3 rounded bg-zinc-500/50 px-2 py-0.5 text-xs font-light text-indigo-100 dark:bg-zinc-900 dark:text-zinc-100">
               A
             </kbd>
           </Button>
         </DialogTrigger>
-        <DialogContent
-          showCloseButton={false}
-          onCloseAutoFocus={() => setError("")}
-        >
+        <DialogContent showCloseButton={false} onCloseAutoFocus={() => setError("")}>
           <DialogHeader>
             <DialogTitle className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
               Add a domain
@@ -116,16 +108,13 @@ export default function AddDomainModal({
           <form onSubmit={handleFormSubmit} id="add-domain">
             <div className="grid gap-4">
               <div className="grid gap-3">
-                <Label
-                  htmlFor="domain"
-                  className="text-sm text-zinc-600 dark:text-zinc-300"
-                >
+                <Label htmlFor="domain" className="text-sm text-zinc-600 dark:text-zinc-300">
                   Name
                 </Label>
                 <Input
                   id="domain"
                   name="domain"
-                  className="dark:text-zinc-100 text-zinc-900"
+                  className="text-zinc-900 dark:text-zinc-100"
                   ref={modalInputRef}
                   placeholder="apple.com"
                 />
