@@ -123,7 +123,7 @@ export function DomainInfoTabs({ data }) {
               <TableRow className="dark:border-b-zinc-800" key={index}>
                 <TableCell>{record.type}</TableCell>
                 <TableCell>{record.name}</TableCell>
-                <TableCell className="max-w-5xl whitespace-normal">{record.data}</TableCell>
+                <TableCell className="max-w-lg break-all">{record.data}</TableCell>
                 <TableCell>{record.ttl}</TableCell>
               </TableRow>
             ))}
