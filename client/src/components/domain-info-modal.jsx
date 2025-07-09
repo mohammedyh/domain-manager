@@ -26,15 +26,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useDomain } from "@/hooks/use-domain";
+import { useDomains } from "@/hooks/use-domains";
 
 export default function DomainInfoModal({ buttonText, domainName }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [shouldFetch, setShouldFetch] = useState(false);
-  const { data } = useDomain(shouldFetch, domainName);
+  const { data } = useDomains(isOpen && domainName);
 
   function handleClick() {
-    setShouldFetch(true);
     setIsOpen(true);
   }
 
@@ -94,7 +92,7 @@ export function DomainInfoTabs({ data }) {
     }
   }
 
-  const sortedDomainData = data.records.sort((a, b) => a.type > b.type);
+  const sortedDomainData = data?.records?.sort((a, b) => a.type > b.type);
   return (
     <Tabs defaultValue="dns-records">
       <div className="flex items-center justify-between">
@@ -131,7 +129,7 @@ export function DomainInfoTabs({ data }) {
         </Table>
       </TabsContent>
       <TabsContent value="ssl-info">
-        {!data?.sslInfo.validFrom || !data?.sslInfo.validTo ? (
+        {!data?.sslInfo?.validFrom || !data?.sslInfo?.validTo ? (
           <div className="my-6 flex flex-col items-center justify-center text-center">
             <img
               className="blur-0 pointer-events-none my-2 dark:hue-rotate-180 dark:invert"
