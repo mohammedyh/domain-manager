@@ -1,7 +1,7 @@
 import { useAuth } from "@clerk/clerk-react";
 import useSWR from "swr";
 
-export function useDomain(shouldFetch, domainName) {
+export function useDomains(domainName) {
   const { getToken } = useAuth();
 
   const fetcher = async (url) =>
@@ -9,7 +9,9 @@ export function useDomain(shouldFetch, domainName) {
       headers: { Authorization: `Bearer ${await getToken()}` },
     }).then((res) => res.json());
 
-  return useSWR(shouldFetch ? `/api/domains/${domainName}` : null, fetcher, {
+  const url = domainName ? `/api/domains/${domainName}` : "/api/domains";
+
+  return useSWR(url, fetcher, {
     revalidateOnFocus: false,
   });
 }
