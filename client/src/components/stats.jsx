@@ -5,12 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 function Stats({ domains }) {
   const domainsExpiringThisMonth = domains.filter((domain) =>
-    dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month")
+    dayjs().isSame(dayjs(domain.expiryDate).format("YYYY-MM-DD"), "month"),
   );
   const sslCertsExpiringThisMonth = domains.filter(
     (domain) =>
-      domain.sslInfo &&
-      dayjs().isSame(dayjs(domain.sslInfo.validTo).format("YYYY-MM-DD"), "month")
+      domain.sslInfo && dayjs().isSame(dayjs(domain.sslInfo.validTo).format("YYYY-MM-DD"), "month"),
   );
 
   return (
